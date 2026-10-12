@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resources & Toolkits — Generation News Youth Development</title>
+  <meta name="description" content="Free downloadable guides, contract templates, trade safety checklists, and scholarship directories for youth ages 13–20 and families.">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    .page-hero {
+      padding: 70px 0 50px;
+      background: radial-gradient(ellipse at 80% 20%, rgba(255, 87, 34, 0.08), transparent 60%), #f8f7f4;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .resource-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid var(--border-card);
+      box-shadow: var(--shadow-card);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .resource-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--orange);
+      box-shadow: var(--shadow-float);
+    }
+    .filter-btn {
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border-card);
+      background: #fff;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--orange);
+      color: #fff;
+      border-color: var(--orange);
+    }
+    .faq-item {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid var(--border-card);
+      margin-bottom: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow-subtle);
+    }
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      padding: 22px 26px;
+      background: none;
+      border: 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-headline);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-answer {
+      display: none;
+      padding: 0 26px 22px;
+      color: var(--text-body);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+    .faq-icon {
+      font-size: 1.2rem;
+      color: var(--orange);
+      transition: transform 0.2s;
+    }
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP NAVIGATION BAR
+       ========================================================================== -->
+  <header class="top-nav">
+    <div class="container">
+      <div class="nav-row">
+        <a href="index.html" class="brand-box" style="text-decoration:none;">
+          <div class="brand-icon-pill">GN</div>
+          <span class="brand-name">Generation<span>News</span></span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-btn">Home</a></li>
+          <li><a href="programs.html" class="nav-btn">Programs</a></li>
+          <li><a href="shop.html" class="nav-btn">Projects & Shop</a></li>
+          <li><a href="stories.html" class="nav-btn">Stories</a></li>
+          <li><a href="videos.html" class="nav-btn">Videos</a></li>
+          <li><a href="about.html" class="nav-btn">About</a></li>
+          <li><a href="mission.html" class="nav-btn">Mission</a></li>
+          <li><a href="community.html" class="nav-btn">Community</a></li>
+          <li><a href="resources.html" class="nav-btn active">Resources</a></li>
+          <li><a href="contact.html" class="nav-btn">Contact</a></li>
+        </ul>
+
+        <div class="nav-cta-group">
+          <a href="programs.html" class="btn-orange-pill desktop-only" style="text-decoration:none;">
+            <span>Apply Now</span>
+            <span>→</span>
+          </a>
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+      <ul class="mobile-nav-list">
+        <li><a href="index.html" class="mobile-nav-link"><span>Home</span> <span>→</span></a></li>
+        <li><a href="programs.html" class="mobile-nav-link"><span>Programs</span> <span>→</span></a></li>
+        <li><a href="shop.html" class="mobile-nav-link"><span>Projects &amp; Shop</span> <span>→</span></a></li>
+        <li><a href="stories.html" class="mobile-nav-link"><span>Stories</span> <span>→</span></a></li>
+        <li><a href="videos.html" class="mobile-nav-link"><span>Videos</span> <span>→</span></a></li>
+        <li><a href="about.html" class="mobile-nav-link"><span>About</span> <span>→</span></a></li>
+        <li><a href="mission.html" class="mobile-nav-link"><span>Mission</span> <span>→</span></a></li>
+        <li><a href="community.html" class="mobile-nav-link"><span>Community</span> <span>→</span></a></li>
+        <li><a href="resources.html" class="mobile-nav-link active"><span>Resources</span> <span>→</span></a></li>
+        <li><a href="contact.html" class="mobile-nav-link"><span>Contact</span> <span>→</span></a></li>
+      </ul>
+      <div class="mobile-nav-footer">
+        <a href="programs.html" class="btn-orange-pill" style="width:100%; justify-content:center; text-decoration:none;">
+          <span>Apply for Cohort</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       PAGE HERO
+       ========================================================================== -->
+  <section class="page-hero">
+    <div class="container">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+        <span class="havenly-tag">FREE OPEN SOURCE TOOLKITS</span>
+        <span style="font-size: 0.85rem; font-weight: 600; color: #2e7d32; background: #e8f5e9; padding: 4px 10px; border-radius: 20px;">● 100% Free Downloads</span>
+      </div>
+      <h1 style="font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; max-width: 900px;">
+        Everything we've built, written & tested — <span style="color: var(--orange);">free to keep.</span>
+      </h1>
+      <p style="font-size: 1.2rem; color: var(--text-body); max-width: 760px; line-height: 1.6; margin-bottom: 30px;">
+        Whether you're currently in a cohort or learning on your own, these practical guides, templates, and checklists give you a head start.
+      </p>
+
+      <!-- Search & Filters -->
+      <div style="background: #fff; border-radius: 18px; padding: 20px 24px; box-shadow: var(--shadow-subtle); display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; max-width: 900px;">
+        <input type="text" id="resource-search" placeholder="Search toolkits (e.g. electrical, contract, pricing, parent)..." style="flex: 1; min-width: 240px; padding: 12px 16px; border: 1px solid var(--border-card); border-radius: 12px; font-family: inherit; font-size: 0.95rem;">
+        
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="filter-buttons">
+          <button class="filter-btn active" data-cat="all">All</button>
+          <button class="filter-btn" data-cat="trades">Trades</button>
+          <button class="filter-btn" data-cat="creative">Creative Biz</button>
+          <button class="filter-btn" data-cat="life">Life Skills</button>
+          <button class="filter-btn" data-cat="parents">Parents</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       TOOLKITS GRID
+       ========================================================================== -->
+  <section style="padding: 70px 0; background: #fff;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px;" id="resources-grid">
+        
+        <!-- Toolkit 1 -->
+        <div class="resource-card" data-category="trades" data-keywords="electrical safety tools trade circuit breaker apprentice">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <span style="font-size: 0.78rem; font-weight: 700; background: #fff3e0; color: #e65100; padding: 3px 10px; border-radius: 6px;">TRADES & SAFETY</span>
+              <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted);">PDF • 14 pgs</span>
+            </div>
+            <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 10px;">Residential Electrical Safety & Hand Tool Checklist</h3>
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px;">
+              Authored by Master Electrician Marcus Vance. Covers non-contact voltage testing, circuit identification, wire gauges, and essential starter tools under $100.
+            </p>
+          </div>
+          <button class="btn-orange-pill download-btn" data-filename="GN-Electrical-Safety-Guide.pdf" style="border: 0; cursor: pointer; justify-content: center; width: 100%;">
+            <span>Download Toolkit</span>
+            <span>↓</span>
+          </button>
+        </div>
+
+        <!-- Toolkit 2 -->
+        <div class="resource-card" data-category="creative" data-keywords="sneaker custom resale pricing leather angelus airbrush art shoes">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <span style="font-size: 0.78rem; font-weight: 700; background: #e8f5e9; color: #2e7d32; padding: 3px 10px; border-radius: 6px;">CREATIVE BIZ</span>
+              <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted);">PDF • 22 pgs</span>
+            </div>
+            <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 10px;">Sneaker Resale & Materials Sourcing Guide</h3>
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px;">
+              The exact prep formulas, deglazing methods, Angelus paint sealers, and margin formulas our Sneaker Lab students use to price custom kicks for 40%+ profit.
+            </p>
+          </div>
+          <button class="btn-orange-pill download-btn" data-filename="GN-Sneaker-Resale-Guide.pdf" style="border: 0; cursor: pointer; justify-content: center; width: 100%;">
+            <span>Download Toolkit</span>
+            <span>↓</span>
+          </button>
+        </div>
+
+        <!-- Toolkit 3 -->
+        <div class="resource-card" data-category="life" data-keywords="freelance contract invoice template teen money legal client">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <span style="font-size: 0.78rem; font-weight: 700; background: #e3f2fd; color: #1565c0; padding: 3px 10px; border-radius: 6px;">LIFE SKILLS & MONEY</span>
+              <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted);">DOCX + PDF</span>
+            </div>
+            <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 10px;">Teen Freelancer Invoice & Client Agreement Template</h3>
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px;">
+              A plain-English 1-page service contract and invoice template designed for teens selling photos, video edits, website setups, or handyman repair work.
+            </p>
+          </div>
+          <button class="btn-orange-pill download-btn" data-filename="GN-Freelance-Agreement-Template.docx" style="border: 0; cursor: pointer; justify-content: center; width: 100%;">
+            <span>Download Toolkit</span>
+            <span>↓</span>
+          </button>
+        </div>
+
+        <!-- Toolkit 4 -->
+        <div class="resource-card" data-category="life" data-keywords="resume portfolio high school jobs teen first job interview">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <span style="font-size: 0.78rem; font-weight: 700; background: #f3e5f5; color: #7b1fa2; padding: 3px 10px; border-radius: 6px;">LIFE SKILLS & CAREER</span>
+              <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted);">PDF • 8 pgs</span>
+            </div>
+            <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 10px;">High School Resume & Hands-On Portfolio Pack</h3>
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px;">
+              How to write a standout resume when you have "no prior work experience." How to list workshop projects, certifications, and technical skills effectively.
+            </p>
+          </div>
+          <button class="btn-orange-pill download-btn" data-filename="GN-Youth-Resume-Builder.pdf" style="border: 0; cursor: pointer; justify-content: center; width: 100%;">
+            <span>Download Toolkit</span>
+            <span>↓</span>
+          </button>
+        </div>
+
+        <!-- Toolkit 5 -->
+        <div class="resource-card" data-category="parents" data-keywords="parent guardian guide safety logistics high school teen support">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <span style="font-size: 0.78rem; font-weight: 700; background: #efebe9; color: #4e342e; padding: 3px 10px; border-radius: 6px;">PARENTS & FAMILIES</span>
+              <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted);">PDF • 16 pgs</span>
+            </div>
+            <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 10px;">Parent & Guardian Guide to Youth Vocations</h3>
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px;">
+              Everything parents want to know: how trade apprenticeships compare to 4-year college debt, how our safety protocols operate, and how to support your child's micro-venture.
+            </p>
+          </div>
+          <button class="btn-orange-pill download-btn" data-filename="GN-Parent-Guidebook.pdf" style="border: 0; cursor: pointer; justify-content: center; width: 100%;">
+            <span>Download Toolkit</span>
+            <span>↓</span>
+          </button>
+        </div>
+
+        <!-- Toolkit 6 -->
+        <div class="resource-card" data-category="trades" data-keywords="scholarship grants money funding financial aid youth financial">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <span style="font-size: 0.78rem; font-weight: 700; background: #e0f2f1; color: #00695c; padding: 3px 10px; border-radius: 6px;">FINANCIAL AID</span>
+              <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted);">PDF • 30 pgs</span>
+            </div>
+            <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 10px;">Youth Micro-Grant & Scholarship Directory 2026</h3>
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px;">
+              A curated directory of 45+ local and national trade scholarships, youth entrepreneur grants, and tool allowances that high school and teen builders can apply for.
+            </p>
+          </div>
+          <button class="btn-orange-pill download-btn" data-filename="GN-2026-Scholarship-Directory.pdf" style="border: 0; cursor: pointer; justify-content: center; width: 100%;">
+            <span>Download Toolkit</span>
+            <span>↓</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       INTERACTIVE FAQ ACCORDION
+       ========================================================================== -->
+  <section style="padding: 70px 0; background: var(--bg-surface); border-top: 1px solid var(--border-light);">
+    <div class="container" style="max-width: 860px;">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <span class="havenly-tag">FREQUENTLY ASKED QUESTIONS</span>
+        <h2 style="font-size: 2.2rem; font-weight: 800; margin-top: 10px; margin-bottom: 12px;">Answers straight from the bays.</h2>
+        <p style="color: var(--text-body); font-size: 1rem;">Got questions about applying, equipment, or schedules? Click to expand.</p>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Do I need any previous experience or tools before joining?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          None whatsoever. Over 80% of our students have never touched a multimeter, airbrush, or industrial sewing machine before their first day. All specialized tools, PPE safety gear, materials, and canvas sneakers are provided by Generation News at zero cost to students.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>How much do programs actually cost?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          100% of applicants who demonstrate financial need receive full, tuition-free scholarships funded through our donor partners and alumni grants. For families able to contribute, we offer sliding-scale material fees ($0 to $120 total for the 5-week sprint). No youth is ever turned away due to inability to pay.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>What happens if I'm not sure which trade or skill fits me?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          You can try our 30-second quiz on the <a href="about.html" style="color: var(--orange); font-weight:700;">About page</a>, or attend an Open Build Day on Saturdays. You can tour all four bays, see the current students at work, talk with the mentors, and find what excites you before committing to a 5-week cohort.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Do I keep the products I make or sell in the workshop?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Yes, 100%. In Sneaker Lab, the finished custom pair is yours to keep or list in the Youth Market. If you sell it, all revenue goes directly to your student creator account. In Electrical, you take home the functional lamp rig and safety tool kit.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Can high school students receive academic or community service credit?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Yes! We partner with local school districts and CTE (Career & Technical Education) coordinators to certify up to 40 hours of vocational lab hours or community service hours for our Home Safety audit initiatives.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SHARED FOOTER
+       ========================================================================== -->
+  <footer style="background: #0a0c11; color: #fff; padding: 60px 0 30px; border-top: 1px solid rgba(255,255,255,0.08);">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+        <div>
+          <div class="brand-box" style="margin-bottom: 16px;">
+            <div class="brand-icon-pill">GN</div>
+            <span class="brand-name" style="color:#fff;">Generation<span style="color:var(--orange);">News</span></span>
+          </div>
+          <p style="color: #828384; font-size: 0.92rem; line-height: 1.6; max-width: 340px;">
+            A youth development organization for ages 13–20 running hands-on programs that teach real, usable skills — from trades to creative business.
+          </p>
+          <div style="margin-top: 16px; font-size: 0.85rem; color: var(--orange); font-weight: 700;">
+            "Real Skills. Real Future. Built by Doing."
+          </div>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; color: #fff;">Explore</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem;">
+            <li><a href="programs.html" style="color: #959fad; text-decoration: none;">Programs & Cohorts</a></li>
+            <li><a href="shop.html" style="color: #959fad; text-decoration: none;">Projects & Shop</a></li>
+            <li><a href="stories.html" style="color: #959fad; text-decoration: none;">Graduate Stories</a></li>
+            <li><a href="videos.html" style="color: #959fad; text-decoration: none;">Video Theater</a></li>
+            <li><a href="about.html" style="color: #959fad; text-decoration: none;">About & Team</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; color: #fff;">Get Involved</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem;">
+            <li><a href="mission.html" style="color: #959fad; text-decoration: none;">Our Mission</a></li>
+            <li><a href="community.html" style="color: #959fad; text-decoration: none;">Community & RSVP</a></li>
+            <li><a href="resources.html" style="color: var(--orange); text-decoration: none;">Free Toolkits</a></li>
+            <li><a href="contact.html" style="color: #959fad; text-decoration: none;">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; color: #fff;">Campus</h4>
+          <p style="color: #959fad; font-size: 0.88rem; line-height: 1.6; margin-bottom: 12px;">
+            1404 Maker Way, Bay 3<br>
+            Open Tue–Sat: 3:30PM – 8:30PM<br>
+            Ages 13–20 Welcome
+          </p>
+          <span style="display: inline-block; background: rgba(46,125,50,0.2); color: #81c784; padding: 4px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;">● Active Workshop Hours</span>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; font-size: 0.82rem; color: #5f6b7c;">
+        <div>© 2026 Generation News Youth Development. Built by Doing. All rights reserved.</div>
+        <div>Nonprofit 501(c)(3) Partner Organization</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Search, Filter, Downloads & FAQ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // FAQ Accordion
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const questionBtn = item.querySelector('.faq-question');
+        questionBtn.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          faqItems.forEach(i => i.classList.remove('open'));
+          if (!isOpen) item.classList.add('open');
+        });
+      });
+
+      // Filter Buttons
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.resource-card');
+      const searchInput = document.getElementById('resource-search');
+
+      function filterCards() {
+        const activeBtn = document.querySelector('.filter-btn.active');
+        const activeCat = activeBtn ? activeBtn.getAttribute('data-cat') : 'all';
+        const query = searchInput.value.toLowerCase().trim();
+
+        cards.forEach(card => {
+          const cat = card.getAttribute('data-category');
+          const keywords = card.getAttribute('data-keywords') || '';
+          const title = card.querySelector('h3').textContent.toLowerCase();
+          const desc = card.querySelector('p').textContent.toLowerCase();
+
+          const matchesCat = (activeCat === 'all' || cat === activeCat);
+          const matchesQuery = (!query || title.includes(query) || desc.includes(query) || keywords.includes(query));
+
+          if (matchesCat && matchesQuery) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          filterCards();
+        });
+      });
+
+      if (searchInput) {
+        searchInput.addEventListener('input', filterCards);
+      }
+
+      // Download Buttons Simulation
+      const downloadBtns = document.querySelectorAll('.download-btn');
+      downloadBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const fn = btn.getAttribute('data-filename');
+          btn.innerHTML = '<span>Downloading...</span>';
+          setTimeout(() => {
+            btn.innerHTML = '<span>Downloaded ✓</span>';
+            setTimeout(() => {
+              btn.innerHTML = '<span>Download Toolkit</span><span>↓</span>';
+            }, 3000);
+          }, 700);
+        });
+      });
+    });
+  </script>
+  <script src="js/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Graduate Stories & Journeys — Generation News</title>
+  <meta name="description" content="Real journeys of young people aged 13–20 who gained real skills in trades, sneaker design, culinary arts, and digital media.">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    .story-hero {
+      padding: 70px 0 50px;
+      background: radial-gradient(ellipse at 80% 20%, rgba(255, 87, 34, 0.08), transparent 60%), #f8f7f4;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .stories-list {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .story-card-deep {
+      background: #fff;
+      border-radius: 24px;
+      border: 1px solid var(--border-card);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .story-card-deep:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-float);
+    }
+    @media (max-width: 900px) {
+      .story-card-deep { grid-template-columns: 1fr; }
+    }
+    .story-img-pane {
+      position: relative;
+      min-height: 380px;
+    }
+    .story-img-pane img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .story-content-pane {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .audio-player-sim {
+      background: var(--bg-surface);
+      border-radius: 14px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 20px 0;
+    }
+    .play-btn-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      cursor: pointer;
+      border: 0;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .play-btn-circle:hover { transform: scale(1.08); }
+    .kudos-btn {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .kudos-btn:hover, .kudos-btn.liked {
+      background: #ffebee;
+      border-color: #ffcdd2;
+      color: #d32f2f;
+      transform: scale(1.04);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="top-nav">
+    <div class="container">
+      <div class="nav-row">
+        <a href="index.html" class="brand-box" style="text-decoration:none;">
+          <div class="brand-icon-pill">GN</div>
+          <span class="brand-name">Generation<span>News</span></span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-btn">Home</a></li>
+          <li><a href="programs.html" class="nav-btn">Programs</a></li>
+          <li><a href="shop.html" class="nav-btn">Projects & Shop</a></li>
+          <li><a href="stories.html" class="nav-btn active">Stories</a></li>
+          <li><a href="videos.html" class="nav-btn">Videos</a></li>
+          <li><a href="about.html" class="nav-btn">About</a></li>
+          <li><a href="mission.html" class="nav-btn">Mission</a></li>
+          <li><a href="community.html" class="nav-btn">Community</a></li>
+          <li><a href="resources.html" class="nav-btn">Resources</a></li>
+          <li><a href="contact.html" class="nav-btn">Contact</a></li>
+        </ul>
+
+        <div class="nav-cta-group">
+          <button class="btn-orange-pill desktop-only" data-open-apply data-prefill-program="Sneaker Lab">
+            <span>Apply Now</span>
+            <span>→</span>
+          </button>
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+      <ul class="mobile-nav-list">
+        <li><a href="index.html" class="mobile-nav-link"><span>Home</span> <span>→</span></a></li>
+        <li><a href="programs.html" class="mobile-nav-link"><span>Programs</span> <span>→</span></a></li>
+        <li><a href="shop.html" class="mobile-nav-link"><span>Projects &amp; Shop</span> <span>→</span></a></li>
+        <li><a href="stories.html" class="mobile-nav-link active"><span>Stories</span> <span>→</span></a></li>
+        <li><a href="videos.html" class="mobile-nav-link"><span>Videos</span> <span>→</span></a></li>
+        <li><a href="about.html" class="mobile-nav-link"><span>About</span> <span>→</span></a></li>
+        <li><a href="mission.html" class="mobile-nav-link"><span>Mission</span> <span>→</span></a></li>
+        <li><a href="community.html" class="mobile-nav-link"><span>Community</span> <span>→</span></a></li>
+        <li><a href="resources.html" class="mobile-nav-link"><span>Resources</span> <span>→</span></a></li>
+        <li><a href="contact.html" class="mobile-nav-link"><span>Contact</span> <span>→</span></a></li>
+      </ul>
+      <div class="mobile-nav-footer">
+        <a href="programs.html" class="btn-orange-pill" style="width:100%; justify-content:center; text-decoration:none;">
+          <span>Apply for Cohort</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- STORY HERO -->
+  <section class="story-hero">
+    <div class="container">
+      <span class="havenly-tag">GRADUATE JOURNEYS • VERIFIED OUTCOMES</span>
+      <h1 style="font-size: clamp(2.4rem, 4.5vw, 4rem); font-weight: 800; line-height: 1.1; margin: 12px 0 16px;">
+        They didn't just sit in class.<br><span style="color: var(--orange);">They built a future.</span>
+      </h1>
+      <p style="font-size: 1.15rem; color: var(--text-body); max-width: 720px; line-height: 1.6; margin-bottom: 24px;">
+        Every story below represents a real participant aged 13–20 who entered with curiosity and graduated with a verifiable trade credential, paid commercial clients, or an independent business.
+      </p>
+
+      <!-- Track Filters -->
+      <div class="filter-pills-wrap">
+        <button class="filter-pill-btn active" data-story-filter="all">All Stories (5)</button>
+        <button class="filter-pill-btn" data-story-filter="trades">Trades & Electrical</button>
+        <button class="filter-pill-btn" data-story-filter="sneaker">Sneaker Lab</button>
+        <button class="filter-pill-btn" data-story-filter="creator">Digital Creator</button>
+        <button class="filter-pill-btn" data-story-filter="culinary">Culinary Arts</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORIES CONTAINER -->
+  <section style="padding: 50px 0 90px;">
+    <div class="container">
+      <div class="stories-list">
+
+        <!-- Story 1: Marcus -->
+        <article class="story-card-deep" data-story-cat="trades">
+          <div class="story-img-pane">
+            <img src="assets/tracks/trades.jpg" alt="Marcus Jackson in Electrical Lab">
+            <span style="position: absolute; bottom: 16px; left: 16px; background: rgba(0,0,0,0.8); color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700;">
+              Alumni: Fall 2025 Cohort
+            </span>
+          </div>
+          <div class="story-content-pane">
+            <div>
+              <span class="havenly-tag">🔧 TRADES & ELECTRICAL APPRENTICE</span>
+              <h2 style="font-size: 1.85rem; font-weight: 800; margin: 8px 0 12px;">Marcus Jackson, 17</h2>
+              <p style="font-size: 1.05rem; font-weight: 600; color: var(--text-headline); line-height: 1.5; margin-bottom: 14px;">
+                "I came in just wanting something real to do after school. I left knowing how to wire an entire circuit breaker panel and inspect home wiring."
+              </p>
+              <p style="font-size: 0.92rem; color: var(--text-body); line-height: 1.6;">
+                During his 6-week cohort, Marcus inspected electrical outlets for 12 elderly residents in city apartments under Master Electrician Dan Vance. Three weeks after graduation, he was signed to a paid union apprenticeship starting at $22.50/hr.
+              </p>
+
+              <!-- Audio Soundbite Simulation -->
+              <div class="audio-player-sim">
+                <button class="play-btn-circle" onclick="toggleAudio(this, 'Marcus Audio')">▶</button>
+                <div style="flex: 1;">
+                  <strong style="display:block; font-size: 0.85rem;">Marcus on his first live wire test (0:45)</strong>
+                  <div style="height: 4px; background: #ddd; border-radius: 2px; margin-top: 6px; position: relative;">
+                    <div class="audio-bar" style="height: 100%; width: 45%; background: var(--orange); border-radius: 2px;"></div>
+                  </div>
+                </div>
+                <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted);">0:45</span>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 1px solid var(--border-light);">
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Now: <strong>Union Apprentice Electrician</strong></span>
+              <button class="kudos-btn" onclick="addKudo(this)">❤️ <span>142</span> Inspired</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Story 2: Talia & Sneaker Lab -->
+        <article class="story-card-deep" data-story-cat="sneaker">
+          <div class="story-img-pane">
+            <img src="assets/shop/sneakers.jpg" alt="Talia Sneaker Customizer">
+            <span style="position: absolute; bottom: 16px; left: 16px; background: rgba(0,0,0,0.8); color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700;">
+              Alumni: Summer 2025 Cohort
+            </span>
+          </div>
+          <div class="story-content-pane">
+            <div>
+              <span class="havenly-tag" style="color: #ff3d00;">👟 CREATIVE ENTREPRENEUR</span>
+              <h2 style="font-size: 1.85rem; font-weight: 800; margin: 8px 0 12px;">Talia Rodriguez, 16</h2>
+              <p style="font-size: 1.05rem; font-weight: 600; color: var(--text-headline); line-height: 1.5; margin-bottom: 14px;">
+                "I went from ruining sneakers in my bedroom to selling custom Nike Dunks for $180 a pair to real clients online."
+              </p>
+              <p style="font-size: 0.92rem; color: var(--text-body); line-height: 1.6;">
+                In the Sneaker Lab, Talia learned proper acetone leather de-glazing, airbrush masking, and protective finishes. She launched her Instagram brand 'TaliaKicks' during Week 4 and booked 22 client commissions before the semester finished.
+              </p>
+
+              <div class="audio-player-sim">
+                <button class="play-btn-circle" onclick="toggleAudio(this, 'Talia Audio')">▶</button>
+                <div style="flex: 1;">
+                  <strong style="display:block; font-size: 0.85rem;">Talia on pricing her first commission (0:38)</strong>
+                  <div style="height: 4px; background: #ddd; border-radius: 2px; margin-top: 6px; position: relative;">
+                    <div class="audio-bar" style="height: 100%; width: 60%; background: var(--orange); border-radius: 2px;"></div>
+                  </div>
+                </div>
+                <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted);">0:38</span>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 1px solid var(--border-light);">
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Now: <strong>Founder, TaliaKicks Custom Studio</strong></span>
+              <button class="kudos-btn" onclick="addKudo(this)">❤️ <span>198</span> Inspired</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Story 3: Maya -->
+        <article class="story-card-deep" data-story-cat="creator">
+          <div class="story-img-pane">
+            <img src="assets/tracks/creator.jpg" alt="Maya Santos Filmmaker">
+            <span style="position: absolute; bottom: 16px; left: 16px; background: rgba(0,0,0,0.8); color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700;">
+              Alumni: Spring 2026 Cohort
+            </span>
+          </div>
+          <div class="story-content-pane">
+            <div>
+              <span class="havenly-tag" style="color: #2979ff;">💻 DIGITAL MEDIA DIRECTOR</span>
+              <h2 style="font-size: 1.85rem; font-weight: 800; margin: 8px 0 12px;">Maya Santos, 18</h2>
+              <p style="font-size: 1.05rem; font-weight: 600; color: var(--text-headline); line-height: 1.5; margin-bottom: 14px;">
+                "Nobody would hire an 18-year-old video editor without a portfolio. Generation News gave me camera rigs and real commercial clients."
+              </p>
+              <p style="font-size: 0.92rem; color: var(--text-body); line-height: 1.6;">
+                Maya shot three commercial spots for neighborhood bakeries and barbershops during her 4-week cohort. She now freelances full-time, charging $600 per video, while taking evening digital cinema classes.
+              </p>
+
+              <div class="audio-player-sim">
+                <button class="play-btn-circle" onclick="toggleAudio(this, 'Maya Audio')">▶</button>
+                <div style="flex: 1;">
+                  <strong style="display:block; font-size: 0.85rem;">Maya on client communication and camera gear (0:52)</strong>
+                  <div style="height: 4px; background: #ddd; border-radius: 2px; margin-top: 6px; position: relative;">
+                    <div class="audio-bar" style="height: 100%; width: 30%; background: var(--orange); border-radius: 2px;"></div>
+                  </div>
+                </div>
+                <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted);">0:52</span>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 1px solid var(--border-light);">
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Now: <strong>Commercial Video Producer</strong></span>
+              <button class="kudos-btn" onclick="addKudo(this)">❤️ <span>167</span> Inspired</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Story 4: Devon -->
+        <article class="story-card-deep" data-story-cat="culinary">
+          <div class="story-img-pane">
+            <img src="assets/shop/hotsauce.jpg" alt="Devon Miller Culinary">
+            <span style="position: absolute; bottom: 16px; left: 16px; background: rgba(0,0,0,0.8); color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700;">
+              Alumni: Fall 2025 Cohort
+            </span>
+          </div>
+          <div class="story-content-pane">
+            <div>
+              <span class="havenly-tag" style="color: #00bfa5;">🍳 CULINARY STARTER</span>
+              <h2 style="font-size: 1.85rem; font-weight: 800; margin: 8px 0 12px;">Devon Miller, 15</h2>
+              <p style="font-size: 1.05rem; font-weight: 600; color: var(--text-headline); line-height: 1.5; margin-bottom: 14px;">
+                "Cooking at home is one thing. Prepping 120 taco plates under a 3-hour timer for paying neighbors taught me real commercial pressure."
+              </p>
+              <p style="font-size: 0.92rem; color: var(--text-body); line-height: 1.6;">
+                Devon formulated his own habanero pepper hot sauce line during Week 3 of Culinary Basics. His sauce was bottled in our commercial kitchen, tested for shelf life, and sold out 80 bottles in 2 hours at the winter community market.
+              </p>
+
+              <div class="audio-player-sim">
+                <button class="play-btn-circle" onclick="toggleAudio(this, 'Devon Audio')">▶</button>
+                <div style="flex: 1;">
+                  <strong style="display:block; font-size: 0.85rem;">Devon on his first sold-out pop up stand (0:40)</strong>
+                  <div style="height: 4px; background: #ddd; border-radius: 2px; margin-top: 6px; position: relative;">
+                    <div class="audio-bar" style="height: 100%; width: 75%; background: var(--orange); border-radius: 2px;"></div>
+                  </div>
+                </div>
+                <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted);">0:40</span>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 1px solid var(--border-light);">
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Now: <strong>Line Cook & Small-Batch Hot Sauce Maker</strong></span>
+              <button class="kudos-btn" onclick="addKudo(this)">❤️ <span>214</span> Inspired</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background: #111719; color: #fff; padding: 70px 0 40px;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 50px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+            <div class="brand-icon-pill">GN</div>
+            <span style="font-size: 1.3rem; font-weight: 800; color: #fff;">Generation<span style="color:var(--orange);">News</span></span>
+          </div>
+          <p style="color: #9ca3af; font-size: 0.9rem; max-width: 320px; line-height: 1.6;">
+            A youth development organization for ages 13–20, running hands-on programs that teach real, usable skills. Built by doing.
+          </p>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 16px;">Pages</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem;">
+            <li><a href="index.html" style="color: #9ca3af; text-decoration:none;">Home</a></li>
+            <li><a href="programs.html" style="color: #9ca3af; text-decoration:none;">Programs</a></li>
+            <li><a href="shop.html" style="color: #9ca3af; text-decoration:none;">Projects & Shop</a></li>
+            <li><a href="stories.html" style="color: #fff; font-weight:700; text-decoration:none;">Stories</a></li>
+            <li><a href="videos.html" style="color: #9ca3af; text-decoration:none;">Videos</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 16px;">Organization</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem;">
+            <li><a href="about.html" style="color: #9ca3af; text-decoration:none;">About Us</a></li>
+            <li><a href="mission.html" style="color: #9ca3af; text-decoration:none;">Our Mission</a></li>
+            <li><a href="community.html" style="color: #9ca3af; text-decoration:none;">Community Hub</a></li>
+            <li><a href="resources.html" style="color: #9ca3af; text-decoration:none;">Free Toolkits</a></li>
+            <li><a href="contact.html" style="color: #9ca3af; text-decoration:none;">Contact Desk</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 16px;">Nominate a Student</h4>
+          <p style="color: #9ca3af; font-size: 0.85rem; line-height: 1.6; margin-bottom: 12px;">
+            Know a young adult who built something remarkable in our programs?
+          </p>
+          <a href="contact.html" class="btn-orange-pill" style="font-size: 0.82rem; padding: 8px 16px; text-decoration:none;">Share a Story →</a>
+        </div>
+      </div>
+      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px; display: flex; justify-content: space-between; font-size: 0.82rem; color: #6b7280;">
+        <span>© 2026 Generation News Youth Development Academy. All rights reserved.</span>
+        <span>Ages 13–20 • Skills over speeches</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Story Category Filters
+    const storyButtons = document.querySelectorAll('[data-story-filter]');
+    const storyCards = document.querySelectorAll('.story-card-deep');
+
+    storyButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        storyButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.storyFilter;
+
+        storyCards.forEach(card => {
+          const cat = card.dataset.storyCat;
+          if (filter === 'all' || cat === filter) {
+            card.style.display = 'grid';
+            gsap.fromTo(card, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' });
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Soundbite Audio Player simulation
+    function toggleAudio(btn, trackName) {
+      const isPlaying = btn.classList.contains('playing');
+      document.querySelectorAll('.play-btn-circle').forEach(b => {
+        b.classList.remove('playing');
+        b.textContent = '▶';
+      });
+
+      if (!isPlaying) {
+        btn.classList.add('playing');
+        btn.textContent = '❚❚';
+        const bar = btn.parentElement.querySelector('.audio-bar');
+        gsap.to(bar, { width: '100%', duration: 4.5, ease: 'none', onComplete: () => {
+          btn.classList.remove('playing');
+          btn.textContent = '▶';
+          bar.style.width = '30%';
+        }});
+      }
+    }
+
+    // Kudos Counter
+    function addKudo(btn) {
+      if (!btn.classList.contains('liked')) {
+        btn.classList.add('liked');
+        const span = btn.querySelector('span');
+        const count = parseInt(span.textContent, 10);
+        span.textContent = count + 1;
+        gsap.fromTo(btn, { scale: 1.2 }, { scale: 1, duration: 0.3, ease: 'back.out(2)' });
+      }
+    }
+  </script>
+  <script src="js/nav.js"></script>
+</body>
+</html>

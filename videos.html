@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video Theater & Episodic Builds — Generation News</title>
+  <meta name="description" content="Watch young makers in action. Hands-on workshop footage, build reveals, and mentor diaries from Generation News.">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    .video-theater-hero {
+      padding: 60px 0 40px;
+      background: radial-gradient(ellipse at 80% 20%, rgba(255, 87, 34, 0.09), transparent 65%), #111719;
+      color: #fff;
+    }
+    .theater-screen {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      margin-bottom: 24px;
+    }
+    .theater-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+    .theater-screen-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 30px;
+    }
+    .theater-center-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      cursor: pointer;
+      box-shadow: 0 0 0 10px rgba(255, 87, 34, 0.3);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .theater-center-play:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 0 0 16px rgba(255, 87, 34, 0.45);
+    }
+    .video-playlist-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    @media (max-width: 900px) {
+      .video-playlist-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .video-playlist-grid { grid-template-columns: 1fr; }
+    }
+    .playlist-item {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-card);
+      box-shadow: var(--shadow-card);
+      cursor: pointer;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .playlist-item:hover, .playlist-item.active {
+      transform: translateY(-4px);
+      border-color: var(--orange);
+      box-shadow: var(--shadow-float);
+    }
+    .playlist-thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #eee;
+    }
+    .playlist-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .playlist-time {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .playlist-details {
+      padding: 16px 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="top-nav">
+    <div class="container">
+      <div class="nav-row">
+        <a href="index.html" class="brand-box" style="text-decoration:none;">
+          <div class="brand-icon-pill">GN</div>
+          <span class="brand-name">Generation<span>News</span></span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-btn">Home</a></li>
+          <li><a href="programs.html" class="nav-btn">Programs</a></li>
+          <li><a href="shop.html" class="nav-btn">Projects & Shop</a></li>
+          <li><a href="stories.html" class="nav-btn">Stories</a></li>
+          <li><a href="videos.html" class="nav-btn active">Videos</a></li>
+          <li><a href="about.html" class="nav-btn">About</a></li>
+          <li><a href="mission.html" class="nav-btn">Mission</a></li>
+          <li><a href="community.html" class="nav-btn">Community</a></li>
+          <li><a href="resources.html" class="nav-btn">Resources</a></li>
+          <li><a href="contact.html" class="nav-btn">Contact</a></li>
+        </ul>
+
+        <div class="nav-cta-group">
+          <button class="btn-orange-pill desktop-only" data-open-apply data-prefill-program="Sneaker Lab">
+            <span>Apply Now</span>
+            <span>→</span>
+          </button>
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+      <ul class="mobile-nav-list">
+        <li><a href="index.html" class="mobile-nav-link"><span>Home</span> <span>→</span></a></li>
+        <li><a href="programs.html" class="mobile-nav-link"><span>Programs</span> <span>→</span></a></li>
+        <li><a href="shop.html" class="mobile-nav-link"><span>Projects &amp; Shop</span> <span>→</span></a></li>
+        <li><a href="stories.html" class="mobile-nav-link"><span>Stories</span> <span>→</span></a></li>
+        <li><a href="videos.html" class="mobile-nav-link active"><span>Videos</span> <span>→</span></a></li>
+        <li><a href="about.html" class="mobile-nav-link"><span>About</span> <span>→</span></a></li>
+        <li><a href="mission.html" class="mobile-nav-link"><span>Mission</span> <span>→</span></a></li>
+        <li><a href="community.html" class="mobile-nav-link"><span>Community</span> <span>→</span></a></li>
+        <li><a href="resources.html" class="mobile-nav-link"><span>Resources</span> <span>→</span></a></li>
+        <li><a href="contact.html" class="mobile-nav-link"><span>Contact</span> <span>→</span></a></li>
+      </ul>
+      <div class="mobile-nav-footer">
+        <a href="programs.html" class="btn-orange-pill" style="width:100%; justify-content:center; text-decoration:none;">
+          <span>Apply for Cohort</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- THEATER HERO -->
+  <section class="video-theater-hero">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
+        <div>
+          <span class="havenly-tag" style="background: rgba(255,87,34,0.2); color: #ff9b65;">BUILT BY DOING • VIDEO THEATER</span>
+          <h1 style="font-size: clamp(2rem, 3.8vw, 3.2rem); font-weight: 800; margin: 10px 0 0;">
+            See it built.<br><span style="color: var(--orange);">Not just described.</span>
+          </h1>
+        </div>
+        <div style="font-size: 0.88rem; color: #9ca3af; text-align: right;">
+          <span>Showing: <strong id="activeEpNum" style="color:#fff;">EPISODE 01</strong></span><br>
+          <span id="activeEpTime" style="color: var(--orange);">Duration: 6:15 min</span>
+        </div>
+      </div>
+
+      <!-- Main Interactive Video Screen -->
+      <div class="theater-screen" id="mainTheater">
+        <img id="theaterPoster" src="assets/tracks/sneaker.jpg" alt="Episode Poster">
+        <div class="theater-screen-overlay">
+          <div style="display: flex; justify-content: space-between;">
+            <span id="theaterTag" style="background: rgba(255,87,34,0.9); color: #fff; font-size: 0.8rem; font-weight: 700; padding: 4px 12px; border-radius: 20px;">
+              SNEAKER LAB // EPISODE 01
+            </span>
+            <span style="font-size: 0.85rem; color: rgba(255,255,255,0.8);">4K Studio Audio</span>
+          </div>
+
+          <!-- Center Interactive Play Action -->
+          <div class="theater-center-play" id="theaterPlayBtn" onclick="playEpisodeSimulation()">
+            ▶
+          </div>
+
+          <div>
+            <h2 id="theaterTitle" style="font-size: clamp(1.4rem, 2.5vw, 2.2rem); font-weight: 800; color: #fff; margin-bottom: 8px;">
+              From Stencil to Sole: Deconstructing a High-Top
+            </h2>
+            <p id="theaterDesc" style="font-size: 0.95rem; color: rgba(255,255,255,0.8); max-width: 680px; line-height: 1.5; margin: 0;">
+              Watch 16-year-old Jaylen and mentor Elena walk through the precise chemical leather de-glazing and masking process that turns a plain sneaker into wearable art.
+            </p>
+
+            <!-- Video Scrubber Bar Simulation -->
+            <div style="display: flex; align-items: center; gap: 14px; margin-top: 18px;">
+              <span id="videoCurrentTime" style="font-size: 0.78rem; font-family: var(--font-mono); color: #bbb;">00:00</span>
+              <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.25); border-radius: 3px; position: relative; cursor: pointer;">
+                <div id="videoProgressBar" style="height: 100%; width: 0%; background: var(--orange); border-radius: 3px;"></div>
+              </div>
+              <span id="videoDuration" style="font-size: 0.78rem; font-family: var(--font-mono); color: #bbb;">06:15</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EPISODES PLAYLIST SECTION -->
+  <section style="padding: 60px 0 90px; background: var(--bg-surface);">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <span class="havenly-tag">SERIES PLAYLIST</span>
+          <h2 style="font-size: 2.2rem; font-weight: 800; margin-top: 6px;">Season 1: The Workshop Chronicles</h2>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">Click any episode below to load into the theater screen.</p>
+      </div>
+
+      <div class="video-playlist-grid">
+
+        <!-- Episode 1 -->
+        <div class="playlist-item active" onclick="loadEpisode(1, 'assets/tracks/sneaker.jpg', 'SNEAKER LAB // EPISODE 01', 'From Stencil to Sole: Deconstructing a High-Top', 'Watch 16-year-old Jaylen and mentor Elena walk through the precise chemical leather de-glazing and masking process that turns a plain sneaker into wearable art.', '06:15')">
+          <div class="playlist-thumb">
+            <img src="assets/tracks/sneaker.jpg" alt="Episode 1">
+            <span class="playlist-time">06:15</span>
+          </div>
+          <div class="playlist-details">
+            <span style="font-size: 0.75rem; font-weight: 700; color: var(--orange); text-transform: uppercase;">Episode 01 • Sneaker Lab</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; margin: 6px 0;">From Stencil to Sole</h3>
+            <p style="font-size: 0.85rem; color: var(--text-body); line-height: 1.4;">Prepping leather, mixed acrylic layers, and brushstroke control.</p>
+          </div>
+        </div>
+
+        <!-- Episode 2 -->
+        <div class="playlist-item" onclick="loadEpisode(2, 'assets/tracks/trades.jpg', 'TRADES // EPISODE 02', 'The Live Breaker Panel: First Voltage Test', 'Marcus wires his first 120V dual-breaker circuit and tests ground fault interrupters under Master Electrician Dan Vance.', '08:40')">
+          <div class="playlist-thumb">
+            <img src="assets/tracks/trades.jpg" alt="Episode 2">
+            <span class="playlist-time">08:40</span>
+          </div>
+          <div class="playlist-details">
+            <span style="font-size: 0.75rem; font-weight: 700; color: var(--orange); text-transform: uppercase;">Episode 02 • Trades</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; margin: 6px 0;">The Live Breaker Panel</h3>
+            <p style="font-size: 0.85rem; color: var(--text-body); line-height: 1.4;">Wiring hot legs, neutral bars, and grounding safety checks.</p>
+          </div>
+        </div>
+
+        <!-- Episode 3 -->
+        <div class="playlist-item" onclick="loadEpisode(3, 'assets/tracks/culinary.jpg', 'CULINARY // EPISODE 03', 'The 100-Taco Rush: Kitchen Under Pressure', 'Devon and the kitchen cohort prep, braise, and serve 100 taco orders during a real 3-hour neighborhood pop-up test.', '05:20')">
+          <div class="playlist-thumb">
+            <img src="assets/tracks/culinary.jpg" alt="Episode 3">
+            <span class="playlist-time">05:20</span>
+          </div>
+          <div class="playlist-details">
+            <span style="font-size: 0.75rem; font-weight: 700; color: var(--orange); text-transform: uppercase;">Episode 03 • Culinary</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; margin: 6px 0;">The 100-Taco Rush</h3>
+            <p style="font-size: 0.85rem; color: var(--text-body); line-height: 1.4;">Commercial ticket management, knife safety, and plate expediting.</p>
+          </div>
+        </div>
+
+        <!-- Episode 4 -->
+        <div class="playlist-item" onclick="loadEpisode(4, 'assets/tracks/creator.jpg', 'DIGITAL CREATOR // EPISODE 04', 'Behind the Lens: Shooting the Barbershop Commercial', 'Maya sets up cinema cameras, balances wireless lav mics, and directs real clients for a neighborhood business promo.', '07:10')">
+          <div class="playlist-thumb">
+            <img src="assets/tracks/creator.jpg" alt="Episode 4">
+            <span class="playlist-time">07:10</span>
+          </div>
+          <div class="playlist-details">
+            <span style="font-size: 0.75rem; font-weight: 700; color: var(--orange); text-transform: uppercase;">Episode 04 • Creator</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; margin: 6px 0;">Behind the Lens</h3>
+            <p style="font-size: 0.85rem; color: var(--text-body); line-height: 1.4;">Lighting contrast ratios, client communication, and final delivery.</p>
+          </div>
+        </div>
+
+        <!-- Episode 5 -->
+        <div class="playlist-item" onclick="loadEpisode(5, 'assets/tracks/arts.jpg', 'AUDIO RECORDING // EPISODE 05', 'Audio Board Sessions: Tracking Live Instruments', 'Watch the sound engineering students calibrate analog compressor racks and balance live drum and vocal tracks.', '06:50')">
+          <div class="playlist-thumb">
+            <img src="assets/tracks/arts.jpg" alt="Episode 5">
+            <span class="playlist-time">06:50</span>
+          </div>
+          <div class="playlist-details">
+            <span style="font-size: 0.75rem; font-weight: 700; color: var(--orange); text-transform: uppercase;">Episode 05 • Audio</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; margin: 6px 0;">Audio Board Sessions</h3>
+            <p style="font-size: 0.85rem; color: var(--text-body); line-height: 1.4;">Pre-amps, headphone mixes, and stereo imaging techniques.</p>
+          </div>
+        </div>
+
+        <!-- Episode 6 -->
+        <div class="playlist-item" onclick="loadEpisode(6, 'assets/tracks/leadership.jpg', 'LEADERSHIP // EPISODE 06', 'Pitch Day: Youth Founders Facing Real Donors', 'Young entrepreneurs present their micro-business models and community initiatives for $1,500 seed funding.', '09:05')">
+          <div class="playlist-thumb">
+            <img src="assets/tracks/leadership.jpg" alt="Episode 6">
+            <span class="playlist-time">09:05</span>
+          </div>
+          <div class="playlist-details">
+            <span style="font-size: 0.75rem; font-weight: 700; color: var(--orange); text-transform: uppercase;">Episode 06 • Leadership</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; margin: 6px 0;">Pitch Day Live</h3>
+            <p style="font-size: 0.85rem; color: var(--text-body); line-height: 1.4;">Unit economics, public speaking, and grant negotiations.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background: #111719; color: #fff; padding: 70px 0 40px;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 50px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+            <div class="brand-icon-pill">GN</div>
+            <span style="font-size: 1.3rem; font-weight: 800; color: #fff;">Generation<span style="color:var(--orange);">News</span></span>
+          </div>
+          <p style="color: #9ca3af; font-size: 0.9rem; max-width: 320px; line-height: 1.6;">
+            A youth development organization for ages 13–20, running hands-on programs that teach real, usable skills. Built by doing.
+          </p>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 16px;">Pages</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem;">
+            <li><a href="index.html" style="color: #9ca3af; text-decoration:none;">Home</a></li>
+            <li><a href="programs.html" style="color: #9ca3af; text-decoration:none;">Programs</a></li>
+            <li><a href="shop.html" style="color: #9ca3af; text-decoration:none;">Projects & Shop</a></li>
+            <li><a href="stories.html" style="color: #9ca3af; text-decoration:none;">Stories</a></li>
+            <li><a href="videos.html" style="color: #fff; font-weight:700; text-decoration:none;">Videos</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 16px;">Organization</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem;">
+            <li><a href="about.html" style="color: #9ca3af; text-decoration:none;">About Us</a></li>
+            <li><a href="mission.html" style="color: #9ca3af; text-decoration:none;">Our Mission</a></li>
+            <li><a href="community.html" style="color: #9ca3af; text-decoration:none;">Community Hub</a></li>
+            <li><a href="resources.html" style="color: #9ca3af; text-decoration:none;">Free Toolkits</a></li>
+            <li><a href="contact.html" style="color: #9ca3af; text-decoration:none;">Contact Desk</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 16px;">Submit Footage</h4>
+          <p style="color: #9ca3af; font-size: 0.85rem; line-height: 1.6; margin-bottom: 12px;">
+            Are you a student creator with behind-the-scenes build footage?
+          </p>
+          <a href="contact.html" class="btn-orange-pill" style="font-size: 0.82rem; padding: 8px 16px; text-decoration:none;">Submit to Media Desk →</a>
+        </div>
+      </div>
+      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px; display: flex; justify-content: space-between; font-size: 0.82rem; color: #6b7280;">
+        <span>© 2026 Generation News Youth Development Academy. All rights reserved.</span>
+        <span>Ages 13–20 • Skills over speeches</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const theaterPoster = document.getElementById('theaterPoster');
+    const theaterTag = document.getElementById('theaterTag');
+    const theaterTitle = document.getElementById('theaterTitle');
+    const theaterDesc = document.getElementById('theaterDesc');
+    const activeEpNum = document.getElementById('activeEpNum');
+    const activeEpTime = document.getElementById('activeEpTime');
+    const videoDuration = document.getElementById('videoDuration');
+    const progressBar = document.getElementById('videoProgressBar');
+    const playBtn = document.getElementById('theaterPlayBtn');
+
+    function loadEpisode(num, poster, tag, title, desc, duration) {
+      document.querySelectorAll('.playlist-item').forEach(i => i.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      gsap.to('#mainTheater', { opacity: 0.5, duration: 0.15, onComplete: () => {
+        theaterPoster.src = poster;
+        theaterTag.textContent = tag;
+        theaterTitle.textContent = title;
+        theaterDesc.textContent = desc;
+        activeEpNum.textContent = `EPISODE 0${num}`;
+        activeEpTime.textContent = `Duration: ${duration} min`;
+        videoDuration.textContent = duration;
+        progressBar.style.width = '0%';
+        playBtn.textContent = '▶';
+        gsap.to('#mainTheater', { opacity: 1, duration: 0.25 });
+      }});
+
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    let isPlaying = false;
+    let anim = null;
+    function playEpisodeSimulation() {
+      isPlaying = !isPlaying;
+      playBtn.textContent = isPlaying ? '❚❚' : '▶';
+
+      if (isPlaying) {
+        anim = gsap.to(progressBar, {
+          width: '100%',
+          duration: 10,
+          ease: 'none',
+          onUpdate: () => {
+            const prog = parseFloat(progressBar.style.width) / 100;
+            const sec = Math.floor(prog * 360);
+            const m = Math.floor(sec / 60);
+            const s = sec % 60;
+            document.getElementById('videoCurrentTime').textContent = `0${m}:${s < 10 ? '0' : ''}${s}`;
+          },
+          onComplete: () => {
+            isPlaying = false;
+            playBtn.textContent = '▶';
+          }
+        });
+      } else {
+        if (anim) anim.pause();
+      }
+    }
+  </script>
+  <script src="js/nav.js"></script>
+</body>
+</html>

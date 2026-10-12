@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Community — Generation News Youth Development</title>
+  <meta name="description" content="Join 1,240+ alumni, mentors, volunteers, and families. RSVP for open build days, become a practitioner mentor, or support youth micro-enterprises.">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    .page-hero {
+      padding: 70px 0 50px;
+      background: radial-gradient(ellipse at 80% 20%, rgba(255, 87, 34, 0.08), transparent 60%), #f8f7f4;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .event-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid var(--border-card);
+      box-shadow: var(--shadow-card);
+      padding: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .event-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--orange);
+    }
+    .event-date-box {
+      width: 76px;
+      height: 76px;
+      border-radius: 16px;
+      background: rgba(255,87,34,0.08);
+      border: 1px solid rgba(255,87,34,0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--orange);
+    }
+    .mentor-form-box {
+      background: #fff;
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid var(--border-card);
+      box-shadow: var(--shadow-card);
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 14px 18px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      margin-top: 6px;
+      margin-bottom: 18px;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--orange);
+      background: #fff;
+    }
+    /* Modal */
+    .rsvp-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(17,23,25,0.7);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      place-items: center;
+      padding: 20px;
+    }
+    .rsvp-modal.active { display: grid; }
+    .rsvp-dialog {
+      background: #fff;
+      border-radius: 24px;
+      max-width: 520px;
+      width: 100%;
+      padding: 36px;
+      box-shadow: var(--shadow-float);
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP NAVIGATION BAR
+       ========================================================================== -->
+  <header class="top-nav">
+    <div class="container">
+      <div class="nav-row">
+        <a href="index.html" class="brand-box" style="text-decoration:none;">
+          <div class="brand-icon-pill">GN</div>
+          <span class="brand-name">Generation<span>News</span></span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-btn">Home</a></li>
+          <li><a href="programs.html" class="nav-btn">Programs</a></li>
+          <li><a href="shop.html" class="nav-btn">Projects & Shop</a></li>
+          <li><a href="stories.html" class="nav-btn">Stories</a></li>
+          <li><a href="videos.html" class="nav-btn">Videos</a></li>
+          <li><a href="about.html" class="nav-btn">About</a></li>
+          <li><a href="mission.html" class="nav-btn">Mission</a></li>
+          <li><a href="community.html" class="nav-btn active">Community</a></li>
+          <li><a href="resources.html" class="nav-btn">Resources</a></li>
+          <li><a href="contact.html" class="nav-btn">Contact</a></li>
+        </ul>
+
+        <div class="nav-cta-group">
+          <a href="programs.html" class="btn-orange-pill desktop-only" style="text-decoration:none;">
+            <span>Apply Now</span>
+            <span>→</span>
+          </a>
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+      <ul class="mobile-nav-list">
+        <li><a href="index.html" class="mobile-nav-link"><span>Home</span> <span>→</span></a></li>
+        <li><a href="programs.html" class="mobile-nav-link"><span>Programs</span> <span>→</span></a></li>
+        <li><a href="shop.html" class="mobile-nav-link"><span>Projects &amp; Shop</span> <span>→</span></a></li>
+        <li><a href="stories.html" class="mobile-nav-link"><span>Stories</span> <span>→</span></a></li>
+        <li><a href="videos.html" class="mobile-nav-link"><span>Videos</span> <span>→</span></a></li>
+        <li><a href="about.html" class="mobile-nav-link"><span>About</span> <span>→</span></a></li>
+        <li><a href="mission.html" class="mobile-nav-link"><span>Mission</span> <span>→</span></a></li>
+        <li><a href="community.html" class="mobile-nav-link active"><span>Community</span> <span>→</span></a></li>
+        <li><a href="resources.html" class="mobile-nav-link"><span>Resources</span> <span>→</span></a></li>
+        <li><a href="contact.html" class="mobile-nav-link"><span>Contact</span> <span>→</span></a></li>
+      </ul>
+      <div class="mobile-nav-footer">
+        <a href="programs.html" class="btn-orange-pill" style="width:100%; justify-content:center; text-decoration:none;">
+          <span>Apply for Cohort</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       PAGE HERO
+       ========================================================================== -->
+  <section class="page-hero">
+    <div class="container">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+        <span class="havenly-tag">ALUMNI, FAMILIES & MENTORS</span>
+        <span style="font-size: 0.85rem; font-weight: 600; color: #2e7d32; background: #e8f5e9; padding: 4px 10px; border-radius: 20px;">● 1,240+ Active Network</span>
+      </div>
+      <h1 style="font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; max-width: 900px;">
+        Once you're in, you're part of it <span style="color: var(--orange);">for good.</span>
+      </h1>
+      <p style="font-size: 1.2rem; color: var(--text-body); max-width: 760px; line-height: 1.6; margin-bottom: 30px;">
+        Graduation isn't the finish line. It's an open door to advanced studio bay access, paid assistant mentorships, startup grants, and open community build days.
+      </p>
+
+      <div style="border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-card); border: 1px solid var(--border-card); max-width: 980px;">
+        <img src="assets/community/showcase.jpg" alt="Generation News youth community showcase" style="width: 100%; height: auto; display: block;">
+        <div style="padding: 16px 24px; background: #fff; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-headline);">🎉 Annual Maker Showcase at Central Warehouse</span>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Over 350 parents, founders, and patrons supporting teen makers</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       UPCOMING OPEN BUILD DAYS & SHOWCASES (WITH RSVP MODAL)
+       ========================================================================== -->
+  <section style="padding: 70px 0; background: #fff;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px; margin-bottom: 36px;">
+        <div>
+          <span class="havenly-tag">OPEN DOORS & SHOWCASES</span>
+          <h2 style="font-size: 2.3rem; font-weight: 800; margin-top: 8px;">Upcoming Campus Events</h2>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 420px;">All community events are free and open to teens, parents, mentors, and local supporters.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <!-- Event 1 -->
+        <div class="event-card">
+          <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+            <div class="event-date-box">
+              <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">OCT</span>
+              <strong style="font-size: 1.8rem; line-height: 1;">17</strong>
+            </div>
+            <div>
+              <span style="font-size: 0.78rem; font-weight: 700; background: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 6px;">PUBLIC POP-UP MARKET</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; margin: 6px 0;">Youth Maker Market: Sneakers, Sauces & Lamps</h3>
+              <p style="color: var(--text-body); font-size: 0.92rem; margin: 0;">
+                Saturday • 12:00 PM – 5:00 PM • Campus Central Yard • 100% of proceeds go directly to youth creators.
+              </p>
+            </div>
+          </div>
+          <button class="btn-orange-pill open-rsvp-btn" data-event="Youth Maker Market (Oct 17)" style="border:0; cursor:pointer;">
+            <span>RSVP for Free Pass</span>
+            <span>→</span>
+          </button>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="event-card">
+          <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+            <div class="event-date-box">
+              <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">OCT</span>
+              <strong style="font-size: 1.8rem; line-height: 1;">22</strong>
+            </div>
+            <div>
+              <span style="font-size: 0.78rem; font-weight: 700; background: #fff3e0; color: #e65100; padding: 3px 8px; border-radius: 6px;">HANDS-ON WORKSHOP OPEN HOUSE</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; margin: 6px 0;">Electrical Trades Open Bay & Live Wiring Demos</h3>
+              <p style="color: var(--text-body); font-size: 0.92rem; margin: 0;">
+                Thursday • 5:00 PM – 8:00 PM • Bay 1 • Tour testing rigs, meet union electricians, try hands-on conduit bending.
+              </p>
+            </div>
+          </div>
+          <button class="btn-orange-pill open-rsvp-btn" data-event="Electrical Trades Open Bay (Oct 22)" style="border:0; cursor:pointer;">
+            <span>RSVP for Free Pass</span>
+            <span>→</span>
+          </button>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="event-card">
+          <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+            <div class="event-date-box">
+              <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">NOV</span>
+              <strong style="font-size: 1.8rem; line-height: 1;">07</strong>
+            </div>
+            <div>
+              <span style="font-size: 0.78rem; font-weight: 700; background: #f3e5f5; color: #7b1fa2; padding: 3px 8px; border-radius: 6px;">GRADUATION & PITCH NIGHT</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; margin: 6px 0;">Fall 2026 Cohort Showcase & Seed Grant Pitches</h3>
+              <p style="color: var(--text-body); font-size: 0.92rem; margin: 0;">
+                Saturday • 4:00 PM – 7:30 PM • Main Stage • 6 micro-enterprises pitch live for $10,000 in seed micro-grants.
+              </p>
+            </div>
+          </div>
+          <button class="btn-orange-pill open-rsvp-btn" data-event="Fall 2026 Showcase & Pitch Night (Nov 07)" style="border:0; cursor:pointer;">
+            <span>RSVP for Free Pass</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       BECOME A MENTOR APPLICATION DESK
+       ========================================================================== -->
+  <section id="mentor-form" style="padding: 70px 0; background: var(--bg-surface); border-top: 1px solid var(--border-light);">
+    <div class="container" style="max-width: 860px;">
+      <div class="mentor-form-box">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <span class="havenly-tag">JOIN THE FACULTY</span>
+          <h2 style="font-size: 2.2rem; font-weight: 800; margin-top: 10px; margin-bottom: 12px;">Become a Master Mentor</h2>
+          <p style="color: var(--text-body); font-size: 1rem; max-width: 600px; margin: 0 auto;">
+            Are you a licensed trade professional, brand designer, audio engineer, or founder? Teach the next generation how to build something real.
+          </p>
+        </div>
+
+        <form id="mentor-apply-form">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <label style="font-weight: 700; font-size: 0.88rem;">Your Full Name *</label>
+              <input type="text" class="form-input" placeholder="e.g. David Vance" required>
+            </div>
+            <div>
+              <label style="font-weight: 700; font-size: 0.88rem;">Email Address *</label>
+              <input type="email" class="form-input" placeholder="david@company.com" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <label style="font-weight: 700; font-size: 0.88rem;">Phone Number *</label>
+              <input type="tel" class="form-input" placeholder="(555) 234-5678" required>
+            </div>
+            <div>
+              <label style="font-weight: 700; font-size: 0.88rem;">Primary Trade / Discipline *</label>
+              <select class="form-select" required>
+                <option value="">Select your craft...</option>
+                <option value="trades">Electrical & Technical Building Trades</option>
+                <option value="sneaker">Sneaker Customization & Footwear Design</option>
+                <option value="digital">Video Production & Digital Creator Media</option>
+                <option value="culinary">Culinary Arts & Food Business Ops</option>
+                <option value="business">Micro-Business, Finance & Entrepreneurship</option>
+                <option value="leadership">Public Speaking & Youth Leadership</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <label style="font-weight: 700; font-size: 0.88rem;">Years of Professional Experience *</label>
+              <select class="form-select" required>
+                <option value="3-5">3 to 5 years</option>
+                <option value="5-10">5 to 10 years</option>
+                <option value="10+">10+ years (Master/Journeyperson)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-weight: 700; font-size: 0.88rem;">Preferred Availability</label>
+              <select class="form-select">
+                <option value="weekends">Saturday Workshop Sprint (3 hours)</option>
+                <option value="evenings">Weekday Evening Bay (5:30PM – 8:00PM)</option>
+                <option value="judge">Showcase Judge & Guest Portfolio Reviewer</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label style="font-weight: 700; font-size: 0.88rem;">Why do you want to mentor youth ages 13–20? *</label>
+            <textarea class="form-textarea" rows="4" placeholder="Tell us briefly about your craft, your story, and what tangible skill you want to pass on..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-orange-pill" style="width: 100%; border: 0; cursor: pointer; justify-content: center; padding: 16px;">
+            <span>Submit Mentor Application</span>
+            <span>→</span>
+          </button>
+        </form>
+
+        <div id="mentor-success-msg" style="display: none; margin-top: 20px; padding: 20px; background: #e8f5e9; border: 1px solid #c8e6c9; border-radius: 14px; text-align: center;">
+          <h3 style="color: #2e7d32; font-size: 1.3rem; font-weight: 800; margin: 0 0 8px;">✓ Application Received!</h3>
+          <p style="color: #2e7d32; font-size: 0.95rem; margin: 0;">
+            Thank you for stepping up to teach. Our Program Director Elena Ramos will review your background and reach out within 48 hours for an onboarding chat.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FOR PARENTS & FAMILIES HUB
+       ========================================================================== -->
+  <section style="padding: 70px 0; background: #fff;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+        <div>
+          <span class="havenly-tag">PARENT & GUARDIAN CORNER</span>
+          <h2 style="font-size: 2.2rem; font-weight: 800; margin: 12px 0 16px;">What to expect when your teen joins Generation News.</h2>
+          <p style="color: var(--text-body); font-size: 1.05rem; line-height: 1.6; margin-bottom: 20px;">
+            We know entrusting your teenager's time and safety is a big decision. Here is our direct promise to every parent:
+          </p>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; font-size: 0.95rem;">
+            <li style="display: flex; gap: 12px; align-items: flex-start;">
+              <span style="color: #2e7d32; font-weight: 800; font-size: 1.1rem;">✓</span>
+              <span><strong>Complete Safety First:</strong> All bays are supervised by licensed professionals. Safety gear, eye protection, and gloves are provided and mandatory.</span>
+            </li>
+            <li style="display: flex; gap: 12px; align-items: flex-start;">
+              <span style="color: #2e7d32; font-weight: 800; font-size: 1.1rem;">✓</span>
+              <span><strong>Zero Financial Pressure:</strong> Every young person who qualifies for financial need receives 100% tuition coverage plus materials.</span>
+            </li>
+            <li style="display: flex; gap: 12px; align-items: flex-start;">
+              <span style="color: #2e7d32; font-weight: 800; font-size: 1.1rem;">✓</span>
+              <span><strong>Tangible Confidence:</strong> You will see your teen bring home things they wired, designed, or prepared within the very first 3 weeks.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div style="background: var(--bg-surface); padding: 36px; border-radius: 20px; border: 1px solid var(--border-light);">
+          <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 14px;">Hear From a Parent</h3>
+          <blockquote style="font-style: italic; color: var(--text-headline); font-size: 1.05rem; line-height: 1.6; margin: 0 0 16px;">
+            "My son was disengaged at school and spending 8 hours a day on his phone. In Sneaker Lab, he found something he actually cares about. He came home talking about profit margins and paint blending. Now he's running his own small side hustle at 16."
+          </blockquote>
+          <div style="font-weight: 700; color: var(--text-headline);">— Maria Santos, Parent of Sneaker Lab Graduate</div>
+          <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Son now in 2nd year electrical apprentice track</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       RSVP PASS MODAL (INTERACTIVE)
+       ========================================================================== -->
+  <div class="rsvp-modal" id="rsvp-modal">
+    <div class="rsvp-dialog">
+      <button id="close-rsvp-btn" style="position: absolute; top: 20px; right: 20px; background: none; border: 0; font-size: 1.4rem; cursor: pointer;">✕</button>
+      <div id="rsvp-form-view">
+        <span class="havenly-tag" style="margin-bottom: 8px; display: inline-block;">EVENT GUEST PASS</span>
+        <h3 id="rsvp-event-name" style="font-size: 1.4rem; font-weight: 800; margin-bottom: 14px;">Event RSVP</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 18px;">Enter your name and email to receive your instant digital entrance ticket.</p>
+        
+        <label style="font-weight: 700; font-size: 0.85rem;">Full Name</label>
+        <input type="text" id="rsvp-name" class="form-input" placeholder="Your name" required>
+
+        <label style="font-weight: 700; font-size: 0.85rem;">Email Address</label>
+        <input type="email" id="rsvp-email" class="form-input" placeholder="you@email.com" required>
+
+        <label style="font-weight: 700; font-size: 0.85rem;">Number of Guests</label>
+        <select id="rsvp-guests" class="form-select">
+          <option value="1">1 Person</option>
+          <option value="2">2 People</option>
+          <option value="3">3 People</option>
+          <option value="4+">Family Pass (4+ people)</option>
+        </select>
+
+        <button id="submit-rsvp-btn" class="btn-orange-pill" style="width: 100%; border: 0; cursor: pointer; justify-content: center; padding: 14px;">
+          <span>Generate Digital Pass</span>
+          <span>→</span>
+        </button>
+      </div>
+
+      <div id="rsvp-pass-view" style="display: none; text-align: center; padding: 10px 0;">
+        <div style="display: inline-block; background: #e8f5e9; color: #2e7d32; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.82rem; margin-bottom: 12px;">
+          ✓ PASS CONFIRMED
+        </div>
+        <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 6px;">You're on the Guest List!</h3>
+        <p id="rsvp-pass-details" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
+          Pass #GN-8842 issued. Show this screen or check your inbox at the door.
+        </p>
+
+        <div style="background: var(--bg-surface); border: 2px dashed var(--orange); border-radius: 16px; padding: 20px; margin-bottom: 20px;">
+          <strong id="pass-title" style="display: block; font-size: 1.1rem; color: var(--text-headline); margin-bottom: 4px;">Youth Maker Market</strong>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">1404 Maker Way • Generation News Campus</span>
+          <div style="font-family: var(--font-mono); font-size: 1.2rem; font-weight: 800; color: var(--orange); margin-top: 10px; letter-spacing: 0.1em;">
+            PASS-GN-9281
+          </div>
+        </div>
+
+        <button id="done-rsvp-btn" class="btn-orange-pill" style="border:0; cursor:pointer;">
+          <span>Close & Save</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SHARED FOOTER
+       ========================================================================== -->
+  <footer style="background: #0a0c11; color: #fff; padding: 60px 0 30px; border-top: 1px solid rgba(255,255,255,0.08);">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+        <div>
+          <div class="brand-box" style="margin-bottom: 16px;">
+            <div class="brand-icon-pill">GN</div>
+            <span class="brand-name" style="color:#fff;">Generation<span style="color:var(--orange);">News</span></span>
+          </div>
+          <p style="color: #828384; font-size: 0.92rem; line-height: 1.6; max-width: 340px;">
+            A youth development organization for ages 13–20 running hands-on programs that teach real, usable skills — from trades to creative business.
+          </p>
+          <div style="margin-top: 16px; font-size: 0.85rem; color: var(--orange); font-weight: 700;">
+            "Real Skills. Real Future. Built by Doing."
+          </div>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; color: #fff;">Explore</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem;">
+            <li><a href="programs.html" style="color: #959fad; text-decoration: none;">Programs & Cohorts</a></li>
+            <li><a href="shop.html" style="color: #959fad; text-decoration: none;">Projects & Shop</a></li>
+            <li><a href="stories.html" style="color: #959fad; text-decoration: none;">Graduate Stories</a></li>
+            <li><a href="videos.html" style="color: #959fad; text-decoration: none;">Video Theater</a></li>
+            <li><a href="about.html" style="color: #959fad; text-decoration: none;">About & Team</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; color: #fff;">Get Involved</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem;">
+            <li><a href="mission.html" style="color: #959fad; text-decoration: none;">Our Mission</a></li>
+            <li><a href="community.html" style="color: var(--orange); text-decoration: none;">Community & RSVP</a></li>
+            <li><a href="resources.html" style="color: #959fad; text-decoration: none;">Free Toolkits</a></li>
+            <li><a href="contact.html" style="color: #959fad; text-decoration: none;">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; color: #fff;">Campus</h4>
+          <p style="color: #959fad; font-size: 0.88rem; line-height: 1.6; margin-bottom: 12px;">
+            1404 Maker Way, Bay 3<br>
+            Open Tue–Sat: 3:30PM – 8:30PM<br>
+            Ages 13–20 Welcome
+          </p>
+          <span style="display: inline-block; background: rgba(46,125,50,0.2); color: #81c784; padding: 4px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;">● Active Workshop Hours</span>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; font-size: 0.82rem; color: #5f6b7c;">
+        <div>© 2026 Generation News Youth Development. Built by Doing. All rights reserved.</div>
+        <div>Nonprofit 501(c)(3) Partner Organization</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for RSVP Modal & Mentor Form -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // RSVP Modal
+      const modal = document.getElementById('rsvp-modal');
+      const openBtns = document.querySelectorAll('.open-rsvp-btn');
+      const closeBtn = document.getElementById('close-rsvp-btn');
+      const submitBtn = document.getElementById('submit-rsvp-btn');
+      const doneBtn = document.getElementById('done-rsvp-btn');
+      const eventTitle = document.getElementById('rsvp-event-name');
+      const formView = document.getElementById('rsvp-form-view');
+      const passView = document.getElementById('rsvp-pass-view');
+      const passTitle = document.getElementById('pass-title');
+
+      openBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const evt = btn.getAttribute('data-event');
+          eventTitle.textContent = evt;
+          passTitle.textContent = evt;
+          formView.style.display = 'block';
+          passView.style.display = 'none';
+          modal.classList.add('active');
+        });
+      });
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          modal.classList.remove('active');
+        });
+      }
+      if (doneBtn) {
+        doneBtn.addEventListener('click', () => {
+          modal.classList.remove('active');
+        });
+      }
+
+      if (submitBtn) {
+        submitBtn.addEventListener('click', () => {
+          const name = document.getElementById('rsvp-name').value;
+          const email = document.getElementById('rsvp-email').value;
+          if (!name || !email) {
+            alert('Please fill out your name and email to generate your free pass.');
+            return;
+          }
+          formView.style.display = 'none';
+          passView.style.display = 'block';
+        });
+      }
+
+      // Mentor Application Form
+      const mentorForm = document.getElementById('mentor-apply-form');
+      const mentorSuccess = document.getElementById('mentor-success-msg');
+      if (mentorForm && mentorSuccess) {
+        mentorForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          mentorForm.style.display = 'none';
+          mentorSuccess.style.display = 'block';
+        });
+      }
+    });
+  </script>
+  <script src="js/nav.js"></script>
+</body>
+</html>

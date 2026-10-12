@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Generation News — Youth Skill-Building, Not Just Talk</title>
+  <meta name="description" content="Generation News started with one idea: young people don't need more advice, they need real skills. Discover our origin, 4-pillar methodology, master mentors, and campus.">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    .page-hero {
+      padding: 70px 0 50px;
+      background: radial-gradient(ellipse at 80% 20%, rgba(255, 87, 34, 0.08), transparent 60%), #f8f7f4;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .timeline-track {
+      position: relative;
+      padding: 30px 0;
+    }
+    .timeline-nav {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border-light);
+      margin-bottom: 30px;
+    }
+    .timeline-year-btn {
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: 1px solid var(--border-card);
+      background: #fff;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .timeline-year-btn.active, .timeline-year-btn:hover {
+      background: var(--orange);
+      color: #fff;
+      border-color: var(--orange);
+    }
+    .timeline-card {
+      display: none;
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid var(--border-card);
+      box-shadow: var(--shadow-card);
+      padding: 36px;
+      animation: fadeIn 0.35s ease;
+    }
+    .timeline-card.active {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .timeline-card.active { grid-template-columns: 1fr; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .method-card {
+      background: #fff;
+      border: 1px solid var(--border-card);
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: var(--shadow-subtle);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .method-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-card);
+      border-color: var(--orange);
+    }
+    .mentor-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid var(--border-card);
+      overflow: hidden;
+      box-shadow: var(--shadow-subtle);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .mentor-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-float);
+    }
+    .quiz-box {
+      background: #fff;
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid var(--border-card);
+      box-shadow: var(--shadow-card);
+    }
+    .quiz-option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 16px 20px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .quiz-option-btn:hover, .quiz-option-btn.selected {
+      background: rgba(255, 87, 34, 0.08);
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP NAVIGATION BAR
+       ========================================================================== -->
+  <header class="top-nav">
+    <div class="container">
+      <div class="nav-row">
+        <a href="index.html" class="brand-box" style="text-decoration:none;">
+          <div class="brand-icon-pill">GN</div>
+          <span class="brand-name">Generation<span>News</span></span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-btn">Home</a></li>
+          <li><a href="programs.html" class="nav-btn">Programs</a></li>
+          <li><a href="shop.html" class="nav-btn">Projects & Shop</a></li>
+          <li><a href="stories.html" class="nav-btn">Stories</a></li>
+          <li><a href="videos.html" class="nav-btn">Videos</a></li>
+          <li><a href="about.html" class="nav-btn active">About</a></li>
+          <li><a href="mission.html" class="nav-btn">Mission</a></li>
+          <li><a href="community.html" class="nav-btn">Community</a></li>
+          <li><a href="resources.html" class="nav-btn">Resources</a></li>
+          <li><a href="contact.html" class="nav-btn">Contact</a></li>
+        </ul>
+
+        <div class="nav-cta-group">
+          <a href="programs.html" class="btn-orange-pill desktop-only" style="text-decoration:none;">
+            <span>Apply Now</span>
+            <span>→</span>
+          </a>
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+      <ul class="mobile-nav-list">
+        <li><a href="index.html" class="mobile-nav-link"><span>Home</span> <span>→</span></a></li>
+        <li><a href="programs.html" class="mobile-nav-link"><span>Programs</span> <span>→</span></a></li>
+        <li><a href="shop.html" class="mobile-nav-link"><span>Projects &amp; Shop</span> <span>→</span></a></li>
+        <li><a href="stories.html" class="mobile-nav-link"><span>Stories</span> <span>→</span></a></li>
+        <li><a href="videos.html" class="mobile-nav-link"><span>Videos</span> <span>→</span></a></li>
+        <li><a href="about.html" class="mobile-nav-link active"><span>About</span> <span>→</span></a></li>
+        <li><a href="mission.html" class="mobile-nav-link"><span>Mission</span> <span>→</span></a></li>
+        <li><a href="community.html" class="mobile-nav-link"><span>Community</span> <span>→</span></a></li>
+        <li><a href="resources.html" class="mobile-nav-link"><span>Resources</span> <span>→</span></a></li>
+        <li><a href="contact.html" class="mobile-nav-link"><span>Contact</span> <span>→</span></a></li>
+      </ul>
+      <div class="mobile-nav-footer">
+        <a href="programs.html" class="btn-orange-pill" style="width:100%; justify-content:center; text-decoration:none;">
+          <span>Apply for Cohort</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       PAGE HERO
+       ========================================================================== -->
+  <section class="page-hero">
+    <div class="container">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+        <span class="havenly-tag">ORIGIN & PHILOSOPHY</span>
+        <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Est. 2021 • Ages 13–20</span>
+      </div>
+      <h1 style="font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; max-width: 950px;">
+        We got tired of programs that teach youth <span style="color: var(--orange);">about</span> opportunity instead of handing them one.
+      </h1>
+      <p style="font-size: 1.15rem; color: var(--text-body); max-width: 780px; line-height: 1.6; margin-bottom: 30px;">
+        Generation News started with a simple frustration: most youth initiatives are built around talking — motivational keynotes, career day speeches, and worksheets about "finding your passion." Good intentions, weak results.
+      </p>
+
+      <!-- Key Snapshot Metrics -->
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; padding: 18px 24px; background: #fff; border-radius: 16px; box-shadow: var(--shadow-subtle); max-width: 860px;">
+        <div style="flex: 1; min-width: 140px;">
+          <strong style="display:block; font-size: 1.4rem; color: var(--text-headline);">1,240+</strong>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Youth Graduated</span>
+        </div>
+        <div style="flex: 1; min-width: 140px;">
+          <strong style="display:block; font-size: 1.4rem; color: var(--orange);">92%</strong>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Earn or build within 90 days</span>
+        </div>
+        <div style="flex: 1; min-width: 140px;">
+          <strong style="display:block; font-size: 1.4rem; color: var(--text-headline);">46</strong>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Youth Micro-Businesses</span>
+        </div>
+        <div style="flex: 1; min-width: 140px;">
+          <strong style="display:block; font-size: 1.4rem; color: var(--text-headline);">100%</strong>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Practitioner-Led Bays</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       PHOTO SPOTLIGHT & MANIFESTO
+       ========================================================================== -->
+  <section style="padding: 70px 0; background: #fff;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+        <div>
+          <div style="border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-card); border: 1px solid var(--border-card);">
+            <img src="assets/about/mentor_workshop.jpg" alt="Youth working with mentor in Generation News workshop" style="width: 100%; height: auto; display: block;">
+          </div>
+          <div style="margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
+            <span>📸 Electrical Bay 2 • Lead Instructor Sarah Lin with Spring Cohort</span>
+            <span style="color: var(--orange); font-weight: 600;">Hands-On Safety Certified</span>
+          </div>
+        </div>
+
+        <div>
+          <span class="havenly-tag" style="margin-bottom: 12px; display: inline-block;">HOW WE FLIPPED THE MODEL</span>
+          <h2 style="font-size: 2.2rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px;">
+            Skills over speeches.<br>Outputs over certificates.
+          </h2>
+          <p style="font-size: 1.05rem; line-height: 1.65; color: var(--text-body); margin-bottom: 16px;">
+            Every program we run is built around <strong>doing</strong> something real, start to finish, in a short cycle — whether that's wiring a residential breaker box, designing and reselling custom sneakers, running a mock food stall, or cutting an editorial video portfolio.
+          </p>
+          <p style="font-size: 1.05rem; line-height: 1.65; color: var(--text-body); margin-bottom: 24px;">
+            We work exclusively with mentors who practice the craft professionally — not generalist facilitators reading a script. And we keep our program list rotating, because the skills worth learning at 16 keep changing, and we'd rather stay useful than stay comfortable.
+          </p>
+
+          <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+            <a href="programs.html" class="btn-orange-pill" style="text-decoration:none;">
+              <span>Explore Active Programs</span>
+              <span>→</span>
+            </a>
+            <a href="videos.html" class="nav-btn" style="border: 1px solid var(--border-card); background: var(--bg-surface); text-decoration:none;">
+              <span>Watch Workshop Diaries</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       OUR 4-PART METHODOLOGY
+       ========================================================================== -->
+  <section style="padding: 70px 0; background: var(--bg-surface); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+    <div class="container">
+      <div style="text-align: center; max-width: 680px; margin: 0 auto 50px;">
+        <span class="havenly-tag">THE GENERATION METHOD</span>
+        <h2 style="font-size: 2.4rem; font-weight: 800; margin-top: 10px; margin-bottom: 14px;">Built on four non-negotiables.</h2>
+        <p style="color: var(--text-body); font-size: 1.05rem;">We designed these rules so young people walk away with tangible power, not just attendance marks.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
+        <!-- Pillar 1 -->
+        <div class="method-card">
+          <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(255,87,34,0.1); color: var(--orange); display: grid; place-items: center; font-size: 1.4rem; font-weight: 800; margin-bottom: 20px;">01</div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 10px;">Hands-On First</h3>
+          <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.55;">
+            Theory takes 15 minutes max per session. The rest is hands on tools, needles, code, cameras, or pans. You learn by doing, troubleshooting, and correcting in real time.
+          </p>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="method-card">
+          <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(255,87,34,0.1); color: var(--orange); display: grid; place-items: center; font-size: 1.4rem; font-weight: 800; margin-bottom: 20px;">02</div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 10px;">Real Practitioners</h3>
+          <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.55;">
+            Instructors work or have worked in the actual field. When an electrician teaches circuits or a streetwear designer teaches custom leather, you get real industry trade secrets.
+          </p>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="method-card">
+          <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(255,87,34,0.1); color: var(--orange); display: grid; place-items: center; font-size: 1.4rem; font-weight: 800; margin-bottom: 20px;">03</div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 10px;">Short, Focused Cycles</h3>
+          <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.55;">
+            Programs run in 4 to 6-week sprints. High intensity, fast deliverables, and no dragged-out academic fatigue. Momentum stays high until the final product reveal.
+          </p>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="method-card">
+          <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(255,87,34,0.1); color: var(--orange); display: grid; place-items: center; font-size: 1.4rem; font-weight: 800; margin-bottom: 20px;">04</div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 10px;">Something to Keep</h3>
+          <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.55;">
+            Every participant walks out with a physical product, a public portfolio, a registered micro-venture, or a licensed certification. Proof you can show anyone.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       INTERACTIVE TIMELINE (2021 - 2026)
+       ========================================================================== -->
+  <section style="padding: 70px 0; background: #fff;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px; margin-bottom: 30px;">
+        <div>
+          <span class="havenly-tag">MILESTONES & GROWTH</span>
+          <h2 style="font-size: 2.3rem; font-weight: 800; margin-top: 8px;">From a 12-teen garage to 1,240 makers.</h2>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 400px;">Click through each year to explore how our cohorts expanded across cities and trades.</p>
+      </div>
+
+      <!-- Year Selector -->
+      <div class="timeline-nav">
+        <button class="timeline-year-btn active" data-year="2021">2021 • The Garage Pilot</button>
+        <button class="timeline-year-btn" data-year="2022">2022 • Sneaker Lab Launch</button>
+        <button class="timeline-year-btn" data-year="2023">2023 • 6-Track Expansion</button>
+        <button class="timeline-year-btn" data-year="2024">2024 • 800 Graduates</button>
+        <button class="timeline-year-btn" data-year="2025">2025 • Central Maker Campus</button>
+        <button class="timeline-year-btn" data-year="2026">2026 • Full Free Endowments</button>
+      </div>
+
+      <!-- Timeline Cards -->
+      <div id="year-cards">
+        <div class="timeline-card active" id="card-2021">
+          <div>
+            <span style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; color: var(--orange);">SEPTEMBER 2021</span>
+            <h3 style="font-size: 1.8rem; font-weight: 800; margin: 10px 0 14px;">The First 12 Electrician Apprentices</h3>
+            <p style="color: var(--text-body); line-height: 1.6; margin-bottom: 18px;">
+              Frustrated by youth career panels where teenagers left with only pamphlets, Marcus Vance teamed up with two retired union journeymen. In a rented mechanics garage, 12 teenagers learned how to strip wire, test outlets, and build their first residential fuse box.
+            </p>
+            <div style="display: flex; gap: 20px;">
+              <div><strong style="color: var(--text-headline); font-size: 1.2rem;">12</strong><br><small style="color:var(--text-muted);">Pioneer Students</small></div>
+              <div><strong style="color: var(--text-headline); font-size: 1.2rem;">100%</strong><br><small style="color:var(--text-muted);">Graduation Rate</small></div>
+              <div><strong style="color: var(--orange); font-size: 1.2rem;">$0</strong><br><small style="color:var(--text-muted);">Tuition Charged</small></div>
+            </div>
+          </div>
+          <div style="background: var(--bg-surface); border-radius: 16px; padding: 24px; border: 1px solid var(--border-light);">
+            <blockquote style="font-style: italic; color: var(--text-headline); margin: 0 0 12px; line-height: 1.5;">
+              "If you give a 16-year-old a real multimeter and treat them like an adult in training, they don't look at their phone once for three hours."
+            </blockquote>
+            <span style="font-weight: 700; color: var(--text-muted); font-size: 0.85rem;">— Marcus Vance, Founder</span>
+          </div>
+        </div>
+
+        <div class="timeline-card" id="card-2022">
+          <div>
+            <span style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; color: var(--orange);">JUNE 2022</span>
+            <h3 style="font-size: 1.8rem; font-weight: 800; margin: 10px 0 14px;">Sneaker Lab: From Blank Kicks to Cash Sales</h3>
+            <p style="color: var(--text-body); line-height: 1.6; margin-bottom: 18px;">
+              Teens wanted creative business. We launched Sneaker Lab with 18 high schoolers. Every student customized a fresh pair of sneakers, learned prep, airbrushing, and retail pricing. At the summer showcase, all 18 pairs sold to community patrons within 45 minutes.
+            </p>
+            <div style="display: flex; gap: 20px;">
+              <div><strong style="color: var(--text-headline); font-size: 1.2rem;">18</strong><br><small style="color:var(--text-muted);">Custom Pairs Sold</small></div>
+              <div><strong style="color: var(--text-headline); font-size: 1.2rem;">$4,120</strong><br><small style="color:var(--text-muted);">Direct Youth Earnings</small></div>
+              <div><strong style="color: var(--orange); font-size: 1.2rem;">5 Weeks</strong><br><small style="color:var(--text-muted);">Fast Sprint Cycle</small></div>
+            </div>
+          </div>
+          <div style="background: var(--bg-surface); border-radius: 16px; padding: 24px; border: 1px solid var(--border-light);">
+            <blockquote style="font-style: italic; color: var(--text-headline); margin: 0 0 12px; line-height: 1.5;">
+              "I realized I didn't just like shoes. I liked running a business where the product was made with my own two hands."
+            </blockquote>
+            <span style="font-weight: 700; color: var(--text-muted); font-size: 0.85rem;">— Talia K., 16 (Sneaker Lab Cohort 1)</span>
+          </div>
+        </div>
+
+        <div class="timeline-card" id="card-2023">
+          <div>
+            <span style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; color: var(--orange);">AUTUMN 2023</span>
+            <h3 style="font-size: 1.8rem; font-weight: 800; margin: 10px 0 14px;">Six Formal Vocational & Creative Tracks</h3>
+            <p style="color: var(--text-body); line-height: 1.6; margin-bottom: 18px;">
+              Expanded curriculum to cover Culinary Food Pop-ups, Creator Video Suites, Micro-Business Financial Modeling, and Stage Leadership. Secured our first matching philanthropic grant ensuring 100% of seats remained free for low-income applicants.
+            </p>
+            <div style="display: flex; gap: 20px;">
+              <div><strong style="color: var(--text-headline); font-size: 1.2rem;">6</strong><br><small style="color:var(--text-muted);">Active Tracks</small></div>
+              <div><strong style="color: var(--text-headline); font-size: 1.2rem;">380</strong><br><small style="color:var(--text-muted);">Graduates that Year</small></div>
+              <div><strong style="color: var(--orange); font-size: 1.2rem;">1:4</strong><br><small style="color:var(--text-muted);">Mentor to Youth Ratio</small></div>
+            </div>
+          </div>
+          <div style="background: var(--bg-surface); border-radius: 16px; padding: 24px; border: 1px solid var(--border-light);">
+            <blockquote style="font-style: italic; color: var(--text-headline); margin: 0 0 12px; line-height: 1.5;">
+              "We proved you don't need a 4-year degree just to find out whether you're good at a trade. Four weeks of honest practice tells you everything."
+            </blockquote>
+            <span style="font-weight: 700; color: var(--text-muted); font-size: 0.85rem;">— Elena Ramos, Program Lead</span>
+          </div>
+        </div>
+
+        <div class="timeline-card" id="card-2024">
+          <div>
+            <span style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; color: var(--orange);">NOVEMBER 2024</span>
+            <h3 style="font-size: 1.8rem; font-weight: 800; margin: 10px 0 14px;">Crossing 800 Graduates & 92% Usability Rate</h3>
+            <p style="color: var(--text-body); line-height: 1.6; margin-bottom: 18px;">
+              Conducted an independent 90-day alumni audit: 92% of graduates reported actively utilizing their hands-on skills in paid apprentice work, micro-business client sales, or school technical labs. 24 alumni returned as assistant mentors.
+            </p>
+            <div style="display: flex; gap: 20px;">
+              <div><strong style="color: var(--text-headline); font-size: 1.2rem;">820+</strong><br><small style="color:var(--text-muted);">Alumni Network</small></div>
+              <div><strong style="color: var(--text-headline); font-size: 1.2rem;">92%</strong><br><small style="color:var(--text-muted);">Skill Retention</small></div>
+              <div><strong style="color: var(--orange); font-size: 1.2rem;">24</strong><br><small style="color:var(--text-muted);">Youth Mentors Returned</small></div>
+            </div>
+          </div>
+          <div style="background: var(--bg-surface); border-radius: 16px; padding: 24px; border: 1px solid var(--border-light);">
+            <blockquote style="font-style: italic; color: var(--text-headline); margin: 0 0 12px; line-height: 1.5;">
+              "Coming back to mentor a 14-year-old on the exact soldering iron I learned on two years ago was the most rewarding feeling of my life."
+            </blockquote>
+            <span style="font-weight: 700; color: var(--text-muted); font-size: 0.85rem;">— Marcus Jr., Apprentice Electrician</span>
+          </div>
+        </div>
+
+        <div class="timeline-card" id="card-2025">
+          <div>
+            <span style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; color: var(--orange);">MARCH 2025</span>
+            <h3 style="font-size: 1.8rem; font-weight: 800; margin: 10px 0 14px;">Central 12,000 sq.ft Maker Campus Opened</h3>
+            <p style="color: var(--text-body); line-height: 1.6; margin-bottom: 18px;">
+              Consolidated three pop-up locations into a permanent facility featuring an Electrical & Construction Bay, Sneaker & Textile Studio, Commercial Training Kitchen, Media Podcasting Suite, and Public Retail Pop-Up Gallery.
+            </p>
+            <div style="display: flex; gap: 20px;">
+              <div><strong style="color: var(--text-headline); font-size: 1.2rem;">12,000</strong><br><small style="color:var(--text-muted);">Square Feet Campus</small></div>
+              <div><strong style="color: var(--text-headline); font-size: 1.2rem;">4</strong><br><small style="color:var(--text-muted);">Dedicated Bays</small></div>
+              <div><strong style="color: var(--orange); font-size: 1.2rem;">6 Days</strong><br><small style="color:var(--text-muted);">Open Per Week</small></div>
+            </div>
+          </div>
+          <div style="background: var(--bg-surface); border-radius: 16px; padding: 24px; border: 1px solid var(--border-light);">
+            <blockquote style="font-style: italic; color: var(--text-headline); margin: 0 0 12px; line-height: 1.5;">
+              "Having a permanent address gave our youth a safe harbor where they can come after school, pick up tools, and build until dark."
+            </blockquote>
+            <span style="font-weight: 700; color: var(--text-muted); font-size: 0.85rem;">— Tariq Al-Mansoor, Community Lead</span>
+          </div>
+        </div>
+
+        <div class="timeline-card" id="card-2026">
+          <div>
+            <span style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; color: var(--orange);">2026 • TODAY</span>
+            <h3 style="font-size: 1.8rem; font-weight: 800; margin: 10px 0 14px;">1,240+ Makers, 46 Micro-Businesses & Beyond</h3>
+            <p style="color: var(--text-body); line-height: 1.6; margin-bottom: 18px;">
+              Today, Generation News operates fully funded cohorts year-round. Our alumni have launched sneaker customization studios, freelance media agencies, culinary catering services, and joined licensed union apprenticeships.
+            </p>
+            <div style="display: flex; gap: 20px;">
+              <div><strong style="color: var(--text-headline); font-size: 1.2rem;">1,240+</strong><br><small style="color:var(--text-muted);">Total Youth Trained</small></div>
+              <div><strong style="color: var(--text-headline); font-size: 1.2rem;">46</strong><br><small style="color:var(--text-muted);">Registered Ventures</small></div>
+              <div><strong style="color: var(--orange); font-size: 1.2rem;">100%</strong><br><small style="color:var(--text-muted);">Scholarship Coverage</small></div>
+            </div>
+          </div>
+          <div style="background: var(--bg-surface); border-radius: 16px; padding: 24px; border: 1px solid var(--border-light);">
+            <blockquote style="font-style: italic; color: var(--text-headline); margin: 0 0 12px; line-height: 1.5;">
+              "We aren't slowing down until every single teenager in our city knows how to make a living with their mind and hands."
+            </blockquote>
+            <span style="font-weight: 700; color: var(--text-muted); font-size: 0.85rem;">— The Generation News Team</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       THE TEAM & MASTER MENTORS
+       ========================================================================== -->
+  <section style="padding: 70px 0; background: var(--bg-surface); border-top: 1px solid var(--border-light);">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px; margin-bottom: 40px;">
+        <div>
+          <span class="havenly-tag">THE PEOPLE IN THE BAYS</span>
+          <h2 style="font-size: 2.3rem; font-weight: 800; margin-top: 8px;">Mentors who do the trade, not read the slides.</h2>
+        </div>
+        <a href="community.html#mentor-form" class="btn-orange-pill" style="text-decoration:none;">
+          <span>Apply to Be a Mentor</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+        <!-- Mentor 1 -->
+        <div class="mentor-card">
+          <div style="padding: 24px; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; gap: 16px;">
+            <div style="width: 60px; height: 60px; border-radius: 50%; background: #111719; color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 1.2rem;">MV</div>
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 800; margin: 0 0 4px;">Marcus Vance</h3>
+              <span style="font-size: 0.85rem; color: var(--orange); font-weight: 600;">Founder & Executive Director</span>
+            </div>
+          </div>
+          <div style="padding: 24px;">
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+              Master electrician and 20-year builder. Founded Generation News after seeing dozens of capable teens leave after-school programs with empty binders and zero job prospects.
+            </p>
+            <span style="display: inline-block; font-size: 0.78rem; font-weight: 700; background: #eee; padding: 4px 10px; border-radius: 6px;">Trades • Operations</span>
+          </div>
+        </div>
+
+        <!-- Mentor 2 -->
+        <div class="mentor-card">
+          <div style="padding: 24px; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; gap: 16px;">
+            <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--orange); color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 1.2rem;">ER</div>
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 800; margin: 0 0 4px;">Elena Ramos</h3>
+              <span style="font-size: 0.85rem; color: var(--orange); font-weight: 600;">Program & Cohort Lead</span>
+            </div>
+          </div>
+          <div style="padding: 24px;">
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+              Former vocational educator and curriculum designer. Manages scheduling, workshop supply chains, and ensures no teenager's application sits unreviewed for more than 48 hours.
+            </p>
+            <span style="display: inline-block; font-size: 0.78rem; font-weight: 700; background: #eee; padding: 4px 10px; border-radius: 6px;">Curriculum • Student Care</span>
+          </div>
+        </div>
+
+        <!-- Mentor 3 -->
+        <div class="mentor-card">
+          <div style="padding: 24px; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; gap: 16px;">
+            <div style="width: 60px; height: 60px; border-radius: 50%; background: #2e7d32; color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 1.2rem;">TM</div>
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 800; margin: 0 0 4px;">Tariq Al-Mansoor</h3>
+              <span style="font-size: 0.85rem; color: var(--orange); font-weight: 600;">Community & Alumni Lead</span>
+            </div>
+          </div>
+          <div style="padding: 24px;">
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+              Streetwear label founder and community organizer. Keeps our 1,240+ alumni connected with paid freelance projects, micro-business grants, and mentorship slots.
+            </p>
+            <span style="display: inline-block; font-size: 0.78rem; font-weight: 700; background: #eee; padding: 4px 10px; border-radius: 6px;">Alumni • Micro-Venture Incubator</span>
+          </div>
+        </div>
+
+        <!-- Mentor 4 -->
+        <div class="mentor-card">
+          <div style="padding: 24px; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; gap: 16px;">
+            <div style="width: 60px; height: 60px; border-radius: 50%; background: #673ab7; color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 1.2rem;">SB</div>
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 800; margin: 0 0 4px;">Dr. Simone Bell</h3>
+              <span style="font-size: 0.85rem; color: var(--orange); font-weight: 600;">Safeguarding & Youth Wellbeing</span>
+            </div>
+          </div>
+          <div style="padding: 24px;">
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+              Licensed adolescent psychologist. Oversees child safeguarding protocols, mentor training, and creates an emotionally safe, inclusive atmosphere across all technical bays.
+            </p>
+            <span style="display: inline-block; font-size: 0.78rem; font-weight: 700; background: #eee; padding: 4px 10px; border-radius: 6px;">Child Safety • Wellbeing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       ENGAGEMENT WIDGET: "WHICH TRACK FITS YOU?"
+       ========================================================================== -->
+  <section style="padding: 70px 0; background: #fff;">
+    <div class="container" style="max-width: 860px;">
+      <div class="quiz-box">
+        <div style="text-align: center; margin-bottom: 28px;">
+          <span class="havenly-tag">30-SECOND TRACK MATCH</span>
+          <h2 style="font-size: 2rem; font-weight: 800; margin-top: 8px;">Not sure which cohort to apply for?</h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Answer two quick questions to find the track that fits your style.</p>
+        </div>
+
+        <div id="quiz-step-1">
+          <label style="display:block; font-weight: 800; font-size: 1.05rem; margin-bottom: 14px;">1. When you're given free time, what do you prefer doing?</label>
+          <button class="quiz-option-btn" data-answer="physical">Taking apart gadgets, fixing things, or working with physical tools</button>
+          <button class="quiz-option-btn" data-answer="design">Customizing clothes, sketching sneakers, or visual art</button>
+          <button class="quiz-option-btn" data-answer="digital">Filming videos, editing audio, or creating online content</button>
+          <button class="quiz-option-btn" data-answer="food">Cooking meals, experimenting with spices, or hosting gatherings</button>
+          <button class="quiz-option-btn" data-answer="business">Pitching ideas, trading items, and organizing people</button>
+        </div>
+
+        <div id="quiz-result" style="display: none; margin-top: 24px; padding: 24px; background: rgba(255,87,34,0.06); border-radius: 16px; border: 1px solid rgba(255,87,34,0.2); text-align: center;">
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--orange); text-transform: uppercase;">Your Top Recommended Cohort</span>
+          <h3 id="recommended-title" style="font-size: 1.6rem; font-weight: 800; margin: 8px 0;">Sneaker Lab: Design, Customize, Sell</h3>
+          <p id="recommended-desc" style="color: var(--text-body); font-size: 0.95rem; max-width: 580px; margin: 0 auto 20px;">
+            A 5-week sprint combining custom footwear art with sneaker market pricing and direct sales.
+          </p>
+          <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+            <a href="programs.html" class="btn-orange-pill" id="recommended-apply" style="text-decoration:none;">
+              <span>View Cohort Details</span>
+              <span>→</span>
+            </a>
+            <button class="nav-btn" id="retake-quiz" style="background:#fff; border: 1px solid var(--border-card);">Try Again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CHILD SAFEGUARDING PLEDGE
+       ========================================================================== -->
+  <section style="padding: 50px 0; background: var(--ink); color: #fff;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: center;">
+        <div>
+          <span style="color: var(--orange); font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700;">TRUST & INTEGRITY</span>
+          <h3 style="font-size: 1.8rem; font-weight: 800; margin: 8px 0 14px;">Our Safeguarding Commitment</h3>
+          <p style="color: #959fad; font-size: 0.95rem; line-height: 1.6;">
+            We believe hands-on trade training must be the safest place in a young person's week.
+          </p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div style="background: rgba(255,255,255,0.06); padding: 18px 22px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+            <strong style="color: #fff; display:block; margin-bottom: 6px;">✓ 100% Background Checks</strong>
+            <span style="font-size: 0.85rem; color: #959fad;">All mentors undergo thorough national criminal checks and youth protection training.</span>
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: 18px 22px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+            <strong style="color: #fff; display:block; margin-bottom: 6px;">✓ 1:4 Mentor Ratio</strong>
+            <span style="font-size: 0.85rem; color: #959fad;">No crowded classrooms. Tight ratios mean constant supervision and personalized skill coaching.</span>
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: 18px 22px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+            <strong style="color: #fff; display:block; margin-bottom: 6px;">✓ Parent Check-In Desk</strong>
+            <span style="font-size: 0.85rem; color: #959fad;">Parents receive weekly build progress digests and are invited to all showcase events.</span>
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: 18px 22px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+            <strong style="color: #fff; display:block; margin-bottom: 6px;">✓ OSHA & PPE Gear</strong>
+            <span style="font-size: 0.85rem; color: #959fad;">Full protective equipment provided at no cost for every electrical and workshop student.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SHARED FOOTER
+       ========================================================================== -->
+  <footer style="background: #0a0c11; color: #fff; padding: 60px 0 30px; border-top: 1px solid rgba(255,255,255,0.08);">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+        <div>
+          <div class="brand-box" style="margin-bottom: 16px;">
+            <div class="brand-icon-pill">GN</div>
+            <span class="brand-name" style="color:#fff;">Generation<span style="color:var(--orange);">News</span></span>
+          </div>
+          <p style="color: #828384; font-size: 0.92rem; line-height: 1.6; max-width: 340px;">
+            A youth development organization for ages 13–20 running hands-on programs that teach real, usable skills — from trades to creative business.
+          </p>
+          <div style="margin-top: 16px; font-size: 0.85rem; color: var(--orange); font-weight: 700;">
+            "Real Skills. Real Future. Built by Doing."
+          </div>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; color: #fff;">Explore</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem;">
+            <li><a href="programs.html" style="color: #959fad; text-decoration: none;">Programs & Cohorts</a></li>
+            <li><a href="shop.html" style="color: #959fad; text-decoration: none;">Projects & Shop</a></li>
+            <li><a href="stories.html" style="color: #959fad; text-decoration: none;">Graduate Stories</a></li>
+            <li><a href="videos.html" style="color: #959fad; text-decoration: none;">Video Theater</a></li>
+            <li><a href="about.html" style="color: var(--orange); text-decoration: none;">About & Team</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; color: #fff;">Get Involved</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem;">
+            <li><a href="mission.html" style="color: #959fad; text-decoration: none;">Our Mission</a></li>
+            <li><a href="community.html" style="color: #959fad; text-decoration: none;">Community & RSVP</a></li>
+            <li><a href="resources.html" style="color: #959fad; text-decoration: none;">Free Toolkits</a></li>
+            <li><a href="contact.html" style="color: #959fad; text-decoration: none;">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; color: #fff;">Campus</h4>
+          <p style="color: #959fad; font-size: 0.88rem; line-height: 1.6; margin-bottom: 12px;">
+            1404 Maker Way, Bay 3<br>
+            Open Tue–Sat: 3:30PM – 8:30PM<br>
+            Ages 13–20 Welcome
+          </p>
+          <span style="display: inline-block; background: rgba(46,125,50,0.2); color: #81c784; padding: 4px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;">● Active Workshop Hours</span>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; font-size: 0.82rem; color: #5f6b7c;">
+        <div>© 2026 Generation News Youth Development. Built by Doing. All rights reserved.</div>
+        <div>Nonprofit 501(c)(3) Partner Organization</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive JavaScript for About Page -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Timeline Year Tabs
+      const yearBtns = document.querySelectorAll('.timeline-year-btn');
+      const yearCards = document.querySelectorAll('.timeline-card');
+
+      yearBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          yearBtns.forEach(b => b.classList.remove('active'));
+          yearCards.forEach(c => c.classList.remove('active'));
+
+          btn.classList.add('active');
+          const year = btn.getAttribute('data-year');
+          const targetCard = document.getElementById(`card-${year}`);
+          if (targetCard) targetCard.classList.add('active');
+        });
+      });
+
+      // Track Quiz
+      const quizOptions = document.querySelectorAll('.quiz-option-btn');
+      const quizStep1 = document.getElementById('quiz-step-1');
+      const quizResult = document.getElementById('quiz-result');
+      const recommendedTitle = document.getElementById('recommended-title');
+      const recommendedDesc = document.getElementById('recommended-desc');
+      const retakeBtn = document.getElementById('retake-quiz');
+
+      const recommendations = {
+        physical: {
+          title: "Electrical & Trade Skills Basics",
+          desc: "Learn real practical electrical fundamentals — wiring, safety, and basic circuit repair under a licensed master electrician. 6 weeks, ages 15–20."
+        },
+        design: {
+          title: "Sneaker Lab: Design, Customize, Sell",
+          desc: "From blank canvas sneakers to a finished custom pair — learn design, leather prep, airbrushing, and how to price and sell your work. 5 weeks, ages 13–20."
+        },
+        digital: {
+          title: "Digital Content & Creator Basics",
+          desc: "Filming, editing, motion design, and audio production. Build a real client-ready portfolio piece by the end of the sprint. 4 weeks, ages 13–18."
+        },
+        food: {
+          title: "Culinary Basics & Food Business Starter",
+          desc: "Real kitchen knife skills, sanitation certification, and how to run a food stand. Ends with a live public food pop-up event. 6 weeks, ages 14–20."
+        },
+        business: {
+          title: "Money, Mindset & Micro-Business",
+          desc: "Budgeting, pricing models, LLC basics, and pitching ideas. Ends with pitching a real micro-business to local founders. 4 weeks, ages 15–20."
+        }
+      };
+
+      quizOptions.forEach(opt => {
+        opt.addEventListener('click', () => {
+          const ans = opt.getAttribute('data-answer');
+          if (recommendations[ans]) {
+            recommendedTitle.textContent = recommendations[ans].title;
+            recommendedDesc.textContent = recommendations[ans].desc;
+            quizStep1.style.display = 'none';
+            quizResult.style.display = 'block';
+          }
+        });
+      });
+
+      if (retakeBtn) {
+        retakeBtn.addEventListener('click', () => {
+          quizStep1.style.display = 'block';
+          quizResult.style.display = 'none';
+        });
+      }
+    });
+  </script>
+  <script src="js/nav.js"></script>
+</body>
+</html>

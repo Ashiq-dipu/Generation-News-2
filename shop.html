@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects & Resale Shop — Generation News Youth Academy</title>
+  <meta name="description" content="Shop physical products, custom sneakers, artisanal culinary goods, and handcrafted decor made by young makers aged 13–20. 100% of proceeds go to students.">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    .shop-hero {
+      padding: 70px 0 50px;
+      background: radial-gradient(ellipse at 70% 30%, rgba(255, 87, 34, 0.08), transparent 60%), #f8f7f4;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 36px;
+    }
+    @media (max-width: 992px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .product-grid { grid-template-columns: 1fr; }
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border-card);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-float);
+    }
+    .product-img-wrap {
+      position: relative;
+      height: 260px;
+      overflow: hidden;
+      background: #eee;
+    }
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.06);
+    }
+    .product-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(255, 87, 34, 0.95);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .product-price {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(17, 23, 25, 0.88);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 10px;
+      backdrop-filter: blur(6px);
+    }
+    .product-info {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+    .creator-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+    .order-modal {
+      border: 1px solid white;
+      border-radius: 24px;
+      padding: 35px;
+      max-width: 480px;
+      width: calc(100% - 36px);
+      background: #f8f7f4;
+      box-shadow: 0 25px 100px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="top-nav">
+    <div class="container">
+      <div class="nav-row">
+        <a href="index.html" class="brand-box" style="text-decoration:none;">
+          <div class="brand-icon-pill">GN</div>
+          <span class="brand-name">Generation<span>News</span></span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-btn">Home</a></li>
+          <li><a href="programs.html" class="nav-btn">Programs</a></li>
+          <li><a href="shop.html" class="nav-btn active">Projects & Shop</a></li>
+          <li><a href="stories.html" class="nav-btn">Stories</a></li>
+          <li><a href="videos.html" class="nav-btn">Videos</a></li>
+          <li><a href="about.html" class="nav-btn">About</a></li>
+          <li><a href="mission.html" class="nav-btn">Mission</a></li>
+          <li><a href="community.html" class="nav-btn">Community</a></li>
+          <li><a href="resources.html" class="nav-btn">Resources</a></li>
+          <li><a href="contact.html" class="nav-btn">Contact</a></li>
+        </ul>
+
+        <div class="nav-cta-group">
+          <button class="btn-orange-pill desktop-only" data-open-apply data-prefill-program="Sneaker Lab">
+            <span>Apply Now</span>
+            <span>→</span>
+          </button>
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+      <ul class="mobile-nav-list">
+        <li><a href="index.html" class="mobile-nav-link"><span>Home</span> <span>→</span></a></li>
+        <li><a href="programs.html" class="mobile-nav-link"><span>Programs</span> <span>→</span></a></li>
+        <li><a href="shop.html" class="mobile-nav-link active"><span>Projects &amp; Shop</span> <span>→</span></a></li>
+        <li><a href="stories.html" class="mobile-nav-link"><span>Stories</span> <span>→</span></a></li>
+        <li><a href="videos.html" class="mobile-nav-link"><span>Videos</span> <span>→</span></a></li>
+        <li><a href="about.html" class="mobile-nav-link"><span>About</span> <span>→</span></a></li>
+        <li><a href="mission.html" class="mobile-nav-link"><span>Mission</span> <span>→</span></a></li>
+        <li><a href="community.html" class="mobile-nav-link"><span>Community</span> <span>→</span></a></li>
+        <li><a href="resources.html" class="mobile-nav-link"><span>Resources</span> <span>→</span></a></li>
+        <li><a href="contact.html" class="mobile-nav-link"><span>Contact</span> <span>→</span></a></li>
+      </ul>
+      <div class="mobile-nav-footer">
+        <a href="programs.html" class="btn-orange-pill" style="width:100%; justify-content:center; text-decoration:none;">
+          <span>Apply for Cohort</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SHOP HERO -->
+  <section class="shop-hero">
+    <div class="container">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+        <span class="havenly-tag">STUDENT RESALE WALL & MARKETPLACE</span>
+        <span style="font-size: 0.85rem; font-weight: 600; color: #ff3d00; background: #fff3eb; padding: 4px 10px; border-radius: 20px;">★ 100% of proceeds go directly to youth makers</span>
+      </div>
+      <h1 style="font-size: clamp(2.4rem, 4.5vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 16px;">
+        Built by doing.<br><span style="color: var(--orange);">Sold by the maker.</span>
+      </h1>
+      <p style="font-size: 1.15rem; color: var(--text-body); max-width: 720px; line-height: 1.6; margin-bottom: 30px;">
+        Every product here was designed, wired, stitched, or bottled by a young adult in our academy. When you buy, your money goes directly to the student maker and replenishes materials for the next cohort.
+      </p>
+
+      <!-- Live Revenue Telemetry -->
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; padding: 18px 24px; background: #fff; border-radius: 16px; box-shadow: var(--shadow-subtle); max-width: 780px;">
+        <div style="flex: 1; min-width: 140px;">
+          <strong style="display:block; font-size: 1.5rem; color: var(--orange);">$38,420</strong>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Paid Directly to Youth</span>
+        </div>
+        <div style="flex: 1; min-width: 140px;">
+          <strong style="display:block; font-size: 1.5rem; color: var(--text-headline);">46</strong>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Micro-Brands Launched</span>
+        </div>
+        <div style="flex: 1; min-width: 140px;">
+          <strong style="display:block; font-size: 1.5rem; color: var(--text-headline);">100%</strong>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Creator Proceeds Kept</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT MARKETPLACE WITH INTERACTIVE FILTERS -->
+  <section style="padding: 60px 0 90px;">
+    <div class="container">
+      
+      <!-- Filter Bar -->
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 30px;">
+        <div class="filter-pills-wrap">
+          <button class="filter-pill-btn active" data-shop-filter="all">All Goods (6)</button>
+          <button class="filter-pill-btn" data-shop-filter="sneakers">Sneakers & Wear</button>
+          <button class="filter-pill-btn" data-shop-filter="culinary">Culinary & Pantry</button>
+          <button class="filter-pill-btn" data-shop-filter="trades">Woodwork & Trades</button>
+          <button class="filter-pill-btn" data-shop-filter="digital">Creator Digital</button>
+        </div>
+        <div style="font-size: 0.88rem; color: var(--text-muted);">
+          Showing <strong id="productCount" style="color:var(--text-headline);">6</strong> verified student products
+        </div>
+      </div>
+
+      <!-- Product Cards Grid -->
+      <div class="product-grid" id="shopGrid">
+
+        <!-- Product 1 -->
+        <div class="product-card" data-shop-cat="sneakers">
+          <div class="product-img-wrap">
+            <img src="assets/shop/sneakers.jpg" alt="Custom Air Jordan 1">
+            <span class="product-badge">1-of-1 Original</span>
+            <span class="product-price">$180</span>
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="creator-tag">👟 Marcus J., Age 17 • Sneaker Lab</div>
+              <h3 style="font-size: 1.35rem; margin-bottom: 8px;">Air Jordan 1 'Art on Foot' Custom</h3>
+              <p style="font-size: 0.88rem; color: var(--text-body); line-height: 1.5; margin-bottom: 16px;">
+                Hand-painted with Angelus leather acrylics, waterproof clear-coat sealed, custom graffiti panels and dyed tongue tab.
+              </p>
+            </div>
+            <button class="btn-orange-pill" style="width: 100%; justify-content: center;" onclick="openOrderModal('Air Jordan 1 Art on Foot', '$180', 'Marcus J. (17)')">
+              Support Marcus & Buy →
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card" data-shop-cat="culinary">
+          <div class="product-img-wrap">
+            <img src="assets/shop/hotsauce.jpg" alt="Artisan Hot Sauce">
+            <span class="product-badge">Small Batch #07</span>
+            <span class="product-price">$16</span>
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="creator-tag">🍳 Devon M., Age 15 • Culinary Arts</div>
+              <h3 style="font-size: 1.35rem; margin-bottom: 8px;">The Fire Student Habanero Hot Sauce</h3>
+              <p style="font-size: 0.88rem; color: var(--text-body); line-height: 1.5; margin-bottom: 16px;">
+                Fermented over 21 days with charred mango, roasted garlic, and local honey. Bottled and labeled in our commercial kitchen.
+              </p>
+            </div>
+            <button class="btn-orange-pill" style="width: 100%; justify-content: center;" onclick="openOrderModal('The Fire Student Habanero Hot Sauce', '$16', 'Devon M. (15)')">
+              Support Devon & Buy →
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card" data-shop-cat="trades">
+          <div class="product-img-wrap">
+            <img src="assets/tracks/trades.jpg" alt="Electrical Desk Lamp">
+            <span class="product-badge">Hand-Wired</span>
+            <span class="product-price">$85</span>
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="creator-tag">🔧 Andre K., Age 18 • Trades Academy</div>
+              <h3 style="font-size: 1.35rem; margin-bottom: 8px;">Industrial Walnut Edison Desk Lamp</h3>
+              <p style="font-size: 0.88rem; color: var(--text-body); line-height: 1.5; margin-bottom: 16px;">
+                Solid milled walnut base, hand-bent copper conduit arm, brass toggle switch, and braided houndstooth safety cord.
+              </p>
+            </div>
+            <button class="btn-orange-pill" style="width: 100%; justify-content: center;" onclick="openOrderModal('Industrial Walnut Desk Lamp', '$85', 'Andre K. (18)')">
+              Support Andre & Buy →
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card" data-shop-cat="digital">
+          <div class="product-img-wrap">
+            <img src="assets/tracks/creator.jpg" alt="Video LUTs">
+            <span class="product-badge">Instant Download</span>
+            <span class="product-price">$24</span>
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="creator-tag">💻 Maya S., Age 18 • Digital Creator</div>
+              <h3 style="font-size: 1.35rem; margin-bottom: 8px;">Cinematic Urban Film LUTs (8 Pack)</h3>
+              <p style="font-size: 0.88rem; color: var(--text-body); line-height: 1.5; margin-bottom: 16px;">
+                Professional color grading profiles for Premiere, DaVinci, and Final Cut calibrated for natural skin tones and rich shadows.
+              </p>
+            </div>
+            <button class="btn-orange-pill" style="width: 100%; justify-content: center;" onclick="openOrderModal('Cinematic Urban Film LUTs', '$24', 'Maya S. (18)')">
+              Download LUTs Pack →
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-card" data-shop-cat="sneakers">
+          <div class="product-img-wrap">
+            <img src="assets/tracks/sneaker.jpg" alt="Custom Air Force 1">
+            <span class="product-badge">Pre-Order Custom</span>
+            <span class="product-price">$145</span>
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="creator-tag">👟 Talia R., Age 16 • Sneaker Lab</div>
+              <h3 style="font-size: 1.35rem; margin-bottom: 8px;">Dunk Low 'Midnight Rust' Dip-Dye</h3>
+              <p style="font-size: 0.88rem; color: var(--text-body); line-height: 1.5; margin-bottom: 16px;">
+                Gradient dip-dyed canvas with hand-sanded edges, natural coffee stained midsoles, and replacement cream rope laces.
+              </p>
+            </div>
+            <button class="btn-orange-pill" style="width: 100%; justify-content: center;" onclick="openOrderModal('Dunk Low Midnight Rust', '$145', 'Talia R. (16)')">
+              Support Talia & Buy →
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-card" data-shop-cat="culinary">
+          <div class="product-img-wrap">
+            <img src="assets/tracks/culinary.jpg" alt="Artisan Spice Blend">
+            <span class="product-badge">Pop-Up Favorite</span>
+            <span class="product-price">$22</span>
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="creator-tag">🍳 Kitchen Cohort 04 • Ages 14–19</div>
+              <h3 style="font-size: 1.35rem; margin-bottom: 8px;">Artisanal Rub & Finishing Salt Trio</h3>
+              <p style="font-size: 0.88rem; color: var(--text-body); line-height: 1.5; margin-bottom: 16px;">
+                Smoked paprika dry rub, rosemary flaky sea salt, and citrus garlic seasoning blended and sealed in reusable glass tins.
+              </p>
+            </div>
+            <button class="btn-orange-pill" style="width: 100%; justify-content: center;" onclick="openOrderModal('Spice Blend Trio', '$22', 'Kitchen Cohort 04')">
+              Support Cohort & Buy →
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERACTIVE CHECKOUT & PURCHASE SIMULATION DIALOG -->
+  <dialog id="orderModal" class="order-modal">
+    <button class="close" onclick="document.getElementById('orderModal').close()" style="float: right; background: white; border: 0; border-radius: 50%; width: 32px; height: 32px; font-size: 20px; cursor: pointer;">×</button>
+    <div class="eyebrow"><span class="dot"></span>Youth Maker Support</div>
+    <h2 id="orderTitle" style="font: 800 24px Manrope, sans-serif; letter-spacing: -1px; margin: 15px 0 6px;">Order Product</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 10px 14px; background: #fff; border-radius: 10px;">
+      <span id="orderCreator" style="font-size: 13px; font-weight: 700; color: var(--orange);"></span>
+      <span id="orderPrice" style="font-size: 18px; font-weight: 800; color: var(--text-headline);"></span>
+    </div>
+
+    <form id="orderForm" style="display: flex; flex-direction: column; gap: 12px;">
+      <div>
+        <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">Your Name</label>
+        <input type="text" required placeholder="Jane Doe" style="width: 100%; padding: 10px; border: 1px solid #d3d4d3; border-radius: 8px; font-family: inherit;">
+      </div>
+      <div>
+        <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">Delivery Address or Pop-Up Pickup</label>
+        <input type="text" required placeholder="123 Main St, or 'Pickup at Saturday Pop-up'" style="width: 100%; padding: 10px; border: 1px solid #d3d4d3; border-radius: 8px; font-family: inherit;">
+      </div>
+      <div>
+        <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">Leave an Encouraging Note for the Student Maker</label>
+        <textarea rows="2" placeholder="e.g. Keep building! Love the colors on this..." style="width: 100%; padding: 10px; border: 1px solid #d3d4d3; border-radius: 8px; font-family: inherit; resize: none;"></textarea>
+      </div>
+      <button type="submit" class="btn-orange-pill" style="width: 100%; justify-content: center; margin-top: 6px;">
+        Complete Order & Pay Maker →
+      </button>
+    </form>
+
+    <div id="orderSuccess" style="display: none; text-align: center; padding: 25px 10px;">
+      <div style="font-size: 44px; margin-bottom: 10px;">✨🎉</div>
+      <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 8px;">Order Confirmed!</h3>
+      <p style="font-size: 13px; color: #666; line-height: 1.6;">
+        Your payment has been logged to the student maker's digital stipend account. You'll receive packaging and pickup updates by text!
+      </p>
+      <button class="btn-orange-pill" onclick="document.getElementById('orderModal').close()" style="margin-top: 16px;">Close</button>
+    </div>
+  </dialog>
+
+  <!-- FOOTER -->
+  <footer style="background: #111719; color: #fff; padding: 70px 0 40px; margin-top: 80px;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 50px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+            <div class="brand-icon-pill">GN</div>
+            <span style="font-size: 1.3rem; font-weight: 800; color: #fff;">Generation<span style="color:var(--orange);">News</span></span>
+          </div>
+          <p style="color: #9ca3af; font-size: 0.9rem; max-width: 320px; line-height: 1.6;">
+            A youth development organization for ages 13–20, running hands-on programs that teach real, usable skills. Built by doing.
+          </p>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 16px;">Pages</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem;">
+            <li><a href="index.html" style="color: #9ca3af; text-decoration:none;">Home</a></li>
+            <li><a href="programs.html" style="color: #9ca3af; text-decoration:none;">Programs</a></li>
+            <li><a href="shop.html" style="color: #fff; font-weight:700; text-decoration:none;">Projects & Shop</a></li>
+            <li><a href="stories.html" style="color: #9ca3af; text-decoration:none;">Stories</a></li>
+            <li><a href="videos.html" style="color: #9ca3af; text-decoration:none;">Videos</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 16px;">Organization</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem;">
+            <li><a href="about.html" style="color: #9ca3af; text-decoration:none;">About Us</a></li>
+            <li><a href="mission.html" style="color: #9ca3af; text-decoration:none;">Our Mission</a></li>
+            <li><a href="community.html" style="color: #9ca3af; text-decoration:none;">Community Hub</a></li>
+            <li><a href="resources.html" style="color: #9ca3af; text-decoration:none;">Free Toolkits</a></li>
+            <li><a href="contact.html" style="color: #9ca3af; text-decoration:none;">Contact Desk</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 16px;">Support Us</h4>
+          <p style="color: #9ca3af; font-size: 0.85rem; line-height: 1.6; margin-bottom: 12px;">
+            100% of marketplace purchases fund youth creators. Want to stock student goods?
+          </p>
+          <a href="contact.html" class="btn-orange-pill" style="font-size: 0.82rem; padding: 8px 16px; text-decoration:none;">Partner With Us →</a>
+        </div>
+      </div>
+      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px; display: flex; justify-content: space-between; font-size: 0.82rem; color: #6b7280;">
+        <span>© 2026 Generation News Youth Development Academy. All rights reserved.</span>
+        <span>Ages 13–20 • Real Skills. Real Future.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Category Filtering
+    const shopButtons = document.querySelectorAll('[data-shop-filter]');
+    const prodCards = document.querySelectorAll('.product-card');
+    const counter = document.getElementById('productCount');
+
+    shopButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        shopButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.shopFilter;
+        let count = 0;
+
+        prodCards.forEach(card => {
+          const cat = card.dataset.shopCat;
+          if (filter === 'all' || cat === filter) {
+            card.style.display = 'flex';
+            count++;
+            gsap.fromTo(card, { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' });
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        if (counter) counter.textContent = count;
+      });
+    });
+
+    // Order Modal Logic
+    const orderModal = document.getElementById('orderModal');
+    const orderTitle = document.getElementById('orderTitle');
+    const orderPrice = document.getElementById('orderPrice');
+    const orderCreator = document.getElementById('orderCreator');
+    const orderForm = document.getElementById('orderForm');
+    const orderSuccess = document.getElementById('orderSuccess');
+
+    function openOrderModal(title, price, creator) {
+      if (orderTitle) orderTitle.textContent = title;
+      if (orderPrice) orderPrice.textContent = price;
+      if (orderCreator) orderCreator.textContent = `Maker: ${creator}`;
+      if (orderForm) orderForm.style.display = 'flex';
+      if (orderSuccess) orderSuccess.style.display = 'none';
+      if (orderModal) orderModal.showModal();
+    }
+
+    if (orderForm) {
+      orderForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        orderForm.style.display = 'none';
+        if (orderSuccess) orderSuccess.style.display = 'block';
+      });
+    }
+
+    if (orderModal) {
+      orderModal.addEventListener('click', (e) => {
+        if (e.target === orderModal) orderModal.close();
+      });
+    }
+  </script>
+  <script src="js/nav.js"></script>
+</body>
+</html>

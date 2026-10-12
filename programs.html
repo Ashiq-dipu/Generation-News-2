@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Programs & Cohorts — Generation News Youth Academy</title>
+  <meta name="description" content="Hands-on skill building programs for youth ages 13–20: Trades, Sneaker Lab, Digital Creator, Culinary, and Life Skills.">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    .page-hero {
+      padding: 70px 0 50px;
+      background: radial-gradient(ellipse at 80% 20%, rgba(255, 87, 34, 0.08), transparent 60%), #f8f7f4;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .syllabus-accordion {
+      margin-top: 16px;
+      border-top: 1px dashed var(--border-light);
+      padding-top: 14px;
+    }
+    .syllabus-toggle {
+      background: none;
+      border: 0;
+      color: var(--orange);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0;
+    }
+    .syllabus-content {
+      display: none;
+      margin-top: 14px;
+      background: var(--bg-surface);
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 0.85rem;
+    }
+    .syllabus-content.open { display: block; }
+    .week-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .week-num {
+      font-weight: 800;
+      color: var(--orange);
+      font-family: var(--font-mono);
+      min-width: 60px;
+    }
+    .calc-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border-card);
+      margin: 60px 0;
+    }
+    .slider-range {
+      width: 100%;
+      height: 8px;
+      border-radius: 5px;
+      accent-color: var(--orange);
+      cursor: pointer;
+    }
+    .calc-result-badge {
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      display: inline-block;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="top-nav">
+    <div class="container">
+      <div class="nav-row">
+        <a href="index.html" class="brand-box" style="text-decoration:none;">
+          <div class="brand-icon-pill">GN</div>
+          <span class="brand-name">Generation<span>News</span></span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-btn">Home</a></li>
+          <li><a href="programs.html" class="nav-btn active">Programs</a></li>
+          <li><a href="shop.html" class="nav-btn">Projects & Shop</a></li>
+          <li><a href="stories.html" class="nav-btn">Stories</a></li>
+          <li><a href="videos.html" class="nav-btn">Videos</a></li>
+          <li><a href="about.html" class="nav-btn">About</a></li>
+          <li><a href="mission.html" class="nav-btn">Mission</a></li>
+          <li><a href="community.html" class="nav-btn">Community</a></li>
+          <li><a href="resources.html" class="nav-btn">Resources</a></li>
+          <li><a href="contact.html" class="nav-btn">Contact</a></li>
+        </ul>
+
+        <div class="nav-cta-group">
+          <button class="btn-orange-pill desktop-only" data-open-apply data-prefill-program="Sneaker Lab">
+            <span>Apply Now</span>
+            <span>→</span>
+          </button>
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+      <ul class="mobile-nav-list">
+        <li><a href="index.html" class="mobile-nav-link"><span>Home</span> <span>→</span></a></li>
+        <li><a href="programs.html" class="mobile-nav-link active"><span>Programs</span> <span>→</span></a></li>
+        <li><a href="shop.html" class="mobile-nav-link"><span>Projects &amp; Shop</span> <span>→</span></a></li>
+        <li><a href="stories.html" class="mobile-nav-link"><span>Stories</span> <span>→</span></a></li>
+        <li><a href="videos.html" class="mobile-nav-link"><span>Videos</span> <span>→</span></a></li>
+        <li><a href="about.html" class="mobile-nav-link"><span>About</span> <span>→</span></a></li>
+        <li><a href="mission.html" class="mobile-nav-link"><span>Mission</span> <span>→</span></a></li>
+        <li><a href="community.html" class="mobile-nav-link"><span>Community</span> <span>→</span></a></li>
+        <li><a href="resources.html" class="mobile-nav-link"><span>Resources</span> <span>→</span></a></li>
+        <li><a href="contact.html" class="mobile-nav-link"><span>Contact</span> <span>→</span></a></li>
+      </ul>
+      <div class="mobile-nav-footer">
+        <button class="btn-orange-pill" data-open-apply style="width:100%; justify-content:center;">
+          <span>Apply for Cohort</span>
+          <span>→</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+        <span class="havenly-tag">ACADEMY COHORTS • AGES 13–20</span>
+        <span style="font-size: 0.85rem; font-weight: 600; color: #2e7d32; background: #e8f5e9; padding: 4px 10px; border-radius: 20px;">● Summer & Fall 2026 Admissions Open</span>
+      </div>
+      <h1 style="font-size: clamp(2.4rem, 4.5vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 16px;">
+        Pick a skill.<br><span style="color: var(--orange);">Build something real with it.</span>
+      </h1>
+      <p style="font-size: 1.15rem; color: var(--text-body); max-width: 720px; line-height: 1.6; margin-bottom: 30px;">
+        Every program is hands-on from day one. You don't take tests or write essays. You wire electrical breaker boards, customize and resell sneakers, direct short films, or launch a live food pop-up.
+      </p>
+
+      <!-- Live Cohort Telemetry Bar -->
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; padding: 18px 24px; background: #fff; border-radius: 16px; box-shadow: var(--shadow-subtle); max-width: 820px;">
+        <div style="flex: 1; min-width: 140px;">
+          <strong style="display:block; font-size: 1.4rem; color: var(--text-headline);">6 Active Tracks</strong>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Trades, Design, Tech & Food</span>
+        </div>
+        <div style="flex: 1; min-width: 140px;">
+          <strong style="display:block; font-size: 1.4rem; color: var(--orange);">100% Free</strong>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Need-based scholarships</span>
+        </div>
+        <div style="flex: 1; min-width: 140px;">
+          <strong style="display:block; font-size: 1.4rem; color: var(--text-headline);">1:4 Ratio</strong>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Master mentor guidance</span>
+        </div>
+        <div style="flex: 1; min-width: 140px;">
+          <strong style="display:block; font-size: 1.4rem; color: var(--text-headline);">Keep Your Tools</strong>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Starter kits included</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM CATALOG WITH INTERACTIVE FILTERS -->
+  <section style="padding: 60px 0 90px;">
+    <div class="container">
+      
+      <!-- Interactive Filter Bar -->
+      <div style="background: #fff; padding: 20px 24px; border-radius: 18px; box-shadow: var(--shadow-subtle); border: 1px solid var(--border-light); margin-bottom: 40px;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px;">
+          
+          <div class="filter-pills-wrap">
+            <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); margin-right: 6px;">TRACK:</span>
+            <button class="filter-pill-btn active" data-cat="all">All Tracks (6)</button>
+            <button class="filter-pill-btn" data-cat="trades">Trades & Technical</button>
+            <button class="filter-pill-btn" data-cat="sneaker">Sneaker Lab</button>
+            <button class="filter-pill-btn" data-cat="digital">Digital Creator</button>
+            <button class="filter-pill-btn" data-cat="culinary">Culinary Arts</button>
+            <button class="filter-pill-btn" data-cat="leadership">Leadership & Life</button>
+          </div>
+
+          <div class="filter-pills-wrap">
+            <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); margin-right: 6px;">AGE:</span>
+            <button class="filter-pill-btn active" data-age="all">All Ages (13–20)</button>
+            <button class="filter-pill-btn" data-age="13-15">13–15</button>
+            <button class="filter-pill-btn" data-age="16-18">16–18</button>
+            <button class="filter-pill-btn" data-age="19-20">19–20</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 6 Program Cards -->
+      <div class="programs-grid" id="programsGrid">
+
+        <!-- Program 1: Trades -->
+        <div class="program-card" data-category="trades" data-age="16-18 19-20">
+          <div style="position: relative; height: 210px; border-radius: 12px; overflow: hidden; margin-bottom: 20px;">
+            <img src="assets/tracks/trades.jpg" alt="Electrical workshop" style="width:100%; height:100%; object-fit: cover;">
+            <span style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.75); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">4 Spots Left</span>
+          </div>
+          <div>
+            <span class="havenly-tag">🔧 TRADES & ELECTRICAL</span>
+            <h3 style="font-size: 1.6rem; margin: 10px 0 10px;">Electrical & Trade Skills Basics</h3>
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+              Master basic electrical circuits, tool safety, breaker panel wiring, and troubleshooting under a licensed master electrician.
+            </p>
+            <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px;">
+              <span>⏱ <strong>Duration:</strong> 6 Weeks (2x per week)</span>
+              <span>🎯 <strong>Final Project:</strong> Free community home electrical safety inspection</span>
+              <span>🧰 <strong>Kit Included:</strong> Milwaukee wire strippers, digital multimeter, safety goggles</span>
+            </div>
+
+            <!-- Expandable Syllabus -->
+            <div class="syllabus-accordion">
+              <button class="syllabus-toggle">▶ View 6-Week Curriculum</button>
+              <div class="syllabus-content">
+                <div class="week-row"><span class="week-num">W1-2:</span> <span>Safety protocol, hand tools, reading electrical schematics.</span></div>
+                <div class="week-row"><span class="week-num">W3-4:</span> <span>Rough-in wiring, switches, outlets, and junction boxes.</span></div>
+                <div class="week-row"><span class="week-num">W5-6:</span> <span>Live breaker tests & senior citizen home inspection prep.</span></div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 24px; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.85rem; font-weight: 700; color: #2e7d32;">Ages 16–20</span>
+            <button class="btn-orange-pill" data-open-apply data-prefill-program="Electrical Basics">Apply for Cohort →</button>
+          </div>
+        </div>
+
+        <!-- Program 2: Sneaker Lab -->
+        <div class="program-card" data-category="sneaker" data-age="13-15 16-18 19-20">
+          <div style="position: relative; height: 210px; border-radius: 12px; overflow: hidden; margin-bottom: 20px;">
+            <img src="assets/tracks/sneaker.jpg" alt="Sneaker Lab" style="width:100%; height:100%; object-fit: cover;">
+            <span style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.75); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">2 Spots Left</span>
+          </div>
+          <div>
+            <span class="havenly-tag" style="color: #ff3d00;">👟 CREATIVE COMMERCE</span>
+            <h3 style="font-size: 1.6rem; margin: 10px 0 10px;">Sneaker Lab: Design, Customize & Resell</h3>
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+              Deconstruct real sneakers, learn leather prep, airbrushing, dye baths, and marketplace pricing on StockX and GOAT.
+            </p>
+            <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px;">
+              <span>⏱ <strong>Duration:</strong> 5 Weeks (Intensive workshop)</span>
+              <span>🎯 <strong>Final Project:</strong> 1 Custom Pair to wear + 1 Custom Pair to sell on the Resale Wall</span>
+              <span>🧰 <strong>Kit Included:</strong> Angelus starter leather paint set, brushes, masking tapes</span>
+            </div>
+
+            <!-- Expandable Syllabus -->
+            <div class="syllabus-accordion">
+              <button class="syllabus-toggle">▶ View 5-Week Curriculum</button>
+              <div class="syllabus-content">
+                <div class="week-row"><span class="week-num">W1:</span> <span>Color theory, stencils, acetone de-glazing prep.</span></div>
+                <div class="week-row"><span class="week-num">W2-3:</span> <span>Layered acrylic paint application, airbrush gradients.</span></div>
+                <div class="week-row"><span class="week-num">W4-5:</span> <span>Waterproofing finisher, photography & resale marketplace listing.</span></div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 24px; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.85rem; font-weight: 700; color: #2e7d32;">Ages 13–20</span>
+            <button class="btn-orange-pill" data-open-apply data-prefill-program="Sneaker Lab">Apply for Cohort →</button>
+          </div>
+        </div>
+
+        <!-- Program 3: Digital Creator -->
+        <div class="program-card" data-category="digital" data-age="13-15 16-18">
+          <div style="position: relative; height: 210px; border-radius: 12px; overflow: hidden; margin-bottom: 20px;">
+            <img src="assets/tracks/creator.jpg" alt="Digital Creator Studio" style="width:100%; height:100%; object-fit: cover;">
+            <span style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.75); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">5 Spots Left</span>
+          </div>
+          <div>
+            <span class="havenly-tag" style="color: #2979ff;">💻 DIGITAL & VIDEO</span>
+            <h3 style="font-size: 1.6rem; margin: 10px 0 10px;">Digital Content & Commercial Video</h3>
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+              Get behind 4K cinema cameras, master lighting rigs, edit in DaVinci Resolve, and shoot commercials for neighborhood businesses.
+            </p>
+            <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px;">
+              <span>⏱ <strong>Duration:</strong> 4 Weeks (Studio + on-location)</span>
+              <span>🎯 <strong>Final Project:</strong> 30-sec commercial for a real community partner</span>
+              <span>🧰 <strong>Kit Included:</strong> 64GB Extreme SD card, shotgun mic adapter, LUT pack</span>
+            </div>
+
+            <div class="syllabus-accordion">
+              <button class="syllabus-toggle">▶ View 4-Week Curriculum</button>
+              <div class="syllabus-content">
+                <div class="week-row"><span class="week-num">W1:</span> <span>Camera settings, focal length, 3-point lighting setup.</span></div>
+                <div class="week-row"><span class="week-num">W2:</span> <span>Audio recording, boom poles, commercial storyboarding.</span></div>
+                <div class="week-row"><span class="week-num">W3-4:</span> <span>Editing pacing, color grading, client delivery.</span></div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 24px; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.85rem; font-weight: 700; color: #2e7d32;">Ages 13–18</span>
+            <button class="btn-orange-pill" data-open-apply data-prefill-program="Digital Content">Apply for Cohort →</button>
+          </div>
+        </div>
+
+        <!-- Program 4: Culinary -->
+        <div class="program-card" data-category="culinary" data-age="13-15 16-18 19-20">
+          <div style="position: relative; height: 210px; border-radius: 12px; overflow: hidden; margin-bottom: 20px;">
+            <img src="assets/tracks/culinary.jpg" alt="Culinary kitchen" style="width:100%; height:100%; object-fit: cover;">
+            <span style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.75); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">3 Spots Left</span>
+          </div>
+          <div>
+            <span class="havenly-tag" style="color: #00bfa5;">🍳 CULINARY ARTS</span>
+            <h3 style="font-size: 1.6rem; margin: 10px 0 10px;">Culinary Basics & Food Venture</h3>
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+              Learn commercial knife skills, high-heat cooking, food safety certification, and how to run a profitable weekend pop-up stall.
+            </p>
+            <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px;">
+              <span>⏱ <strong>Duration:</strong> 6 Weeks (Kitchen training)</span>
+              <span>🎯 <strong>Final Project:</strong> Live Pop-Up Kitchen serving 100+ public guests</span>
+              <span>🧰 <strong>Kit Included:</strong> Chef knife roll, digital food thermometer, ServSafe cert</span>
+            </div>
+
+            <div class="syllabus-accordion">
+              <button class="syllabus-toggle">▶ View 6-Week Curriculum</button>
+              <div class="syllabus-content">
+                <div class="week-row"><span class="week-num">W1-2:</span> <span>Knife safety, sanitation, station mise-en-place.</span></div>
+                <div class="week-row"><span class="week-num">W3-4:</span> <span>Sauces, searing, recipe batching, food cost calculations.</span></div>
+                <div class="week-row"><span class="week-num">W5-6:</span> <span>Speed service rehearsal & Public Pop-Up Day execution.</span></div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 24px; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.85rem; font-weight: 700; color: #2e7d32;">Ages 14–20</span>
+            <button class="btn-orange-pill" data-open-apply data-prefill-program="Culinary Basics">Apply for Cohort →</button>
+          </div>
+        </div>
+
+        <!-- Program 5: Leadership -->
+        <div class="program-card" data-category="leadership" data-age="16-18 19-20">
+          <div style="position: relative; height: 210px; border-radius: 12px; overflow: hidden; margin-bottom: 20px;">
+            <img src="assets/tracks/leadership.jpg" alt="Leadership Workshop" style="width:100%; height:100%; object-fit: cover;">
+            <span style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.75); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">6 Spots Left</span>
+          </div>
+          <div>
+            <span class="havenly-tag" style="color: #7c4dff;">💡 LEADERSHIP & LIFE</span>
+            <h3 style="font-size: 1.6rem; margin: 10px 0 10px;">Community Venture & Project Lead</h3>
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+              Learn project budgeting, team leadership, grant proposal drafting, and launch a neighborhood initiative with a $1,500 seed budget.
+            </p>
+            <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px;">
+              <span>⏱ <strong>Duration:</strong> 6 Weeks</span>
+              <span>🎯 <strong>Final Project:</strong> Pitch to local donors & execute your funded venture</span>
+              <span>🧰 <strong>Kit Included:</strong> Project management guide, pitch deck templates, seed grant eligibility</span>
+            </div>
+
+            <div class="syllabus-accordion">
+              <button class="syllabus-toggle">▶ View 6-Week Curriculum</button>
+              <div class="syllabus-content">
+                <div class="week-row"><span class="week-num">W1-2:</span> <span>Community problem discovery & solution prototyping.</span></div>
+                <div class="week-row"><span class="week-num">W3-4:</span> <span>Budgeting, team roles, pitching to city partners.</span></div>
+                <div class="week-row"><span class="week-num">W5-6:</span> <span>Launch day execution and impact presentation.</span></div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 24px; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.85rem; font-weight: 700; color: #2e7d32;">Ages 16–20</span>
+            <button class="btn-orange-pill" data-open-apply data-prefill-program="Community Leadership">Apply for Cohort →</button>
+          </div>
+        </div>
+
+        <!-- Program 6: Sound & Music Production -->
+        <div class="program-card" data-category="digital" data-age="16-18 19-20">
+          <div style="position: relative; height: 210px; border-radius: 12px; overflow: hidden; margin-bottom: 20px;">
+            <img src="assets/tracks/arts.jpg" alt="Audio recording studio" style="width:100%; height:100%; object-fit: cover;">
+            <span style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.75); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">4 Spots Left</span>
+          </div>
+          <div>
+            <span class="havenly-tag" style="color: #d81b60;">🎙 AUDIO & RECORDING</span>
+            <h3 style="font-size: 1.6rem; margin: 10px 0 10px;">Audio Engineering & Studio Production</h3>
+            <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+              Operate analog mixing boards, master studio microphones, record acoustic & vocal sessions, and publish mastered tracks to streaming.
+            </p>
+            <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px;">
+              <span>⏱ <strong>Duration:</strong> 5 Weeks</span>
+              <span>🎯 <strong>Final Project:</strong> Fully mixed and mastered 2-track EP for local artists</span>
+              <span>🧰 <strong>Kit Included:</strong> Studio monitor headphones, audio cables, DAW licenses</span>
+            </div>
+
+            <div class="syllabus-accordion">
+              <button class="syllabus-toggle">▶ View 5-Week Curriculum</button>
+              <div class="syllabus-content">
+                <div class="week-row"><span class="week-num">W1-2:</span> <span>Acoustic science, mic polar patterns, signal flow.</span></div>
+                <div class="week-row"><span class="week-num">W3-4:</span> <span>Tracking live instruments and vocal compression.</span></div>
+                <div class="week-row"><span class="week-num">W5:</span> <span>Mastering loudness, streaming metadata & release.</span></div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 24px; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.85rem; font-weight: 700; color: #2e7d32;">Ages 16–20</span>
+            <button class="btn-orange-pill" data-open-apply data-prefill-program="Audio Engineering">Apply for Cohort →</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- INTERACTIVE TUITION & SCHOLARSHIP CALCULATOR -->
+      <div class="calc-box">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+          <div>
+            <span class="havenly-tag">NO BARRIERS GUARANTEE</span>
+            <h2 style="font-size: 2.2rem; font-weight: 800; margin: 10px 0 14px;">Tuition & Scholarship Estimator</h2>
+            <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">
+              Over 85% of our students attend on 100% full scholarships provided by donor and corporate partners. Slide the bar to see your estimated out-of-pocket cost.
+            </p>
+            
+            <label for="familyContribution" style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 8px;">
+              What can your family comfortably contribute towards tools? <span id="contribValue" style="color: var(--orange);">$0</span>
+            </label>
+            <input type="range" min="0" max="250" step="25" value="0" class="slider-range" id="familyContribution">
+            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+              <span>$0 (100% Free)</span>
+              <span>$125</span>
+              <span>$250 (Full Kit Supporter)</span>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-surface); padding: 30px; border-radius: 16px; text-align: center;">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Your Estimated Out-of-Pocket</span>
+            <div id="costValue" style="font-size: 3.5rem; font-weight: 800; color: var(--orange); line-height: 1.1; margin: 8px 0;">$0</div>
+            <div id="scholarshipNote" class="calc-result-badge">
+              ✓ 100% Need-Based Scholarship Applied ($450 Full Value Sponsored)
+            </div>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 14px;">
+              Includes all workshop materials, mentorship hours, and your keep-forever tool kit.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- APPLICATION MODAL -->
+  <dialog id="appModal" style="border: 1px solid white; border-radius: 24px; padding: 35px; max-width: 520px; width: calc(100% - 36px); background: #f8f7f4; box-shadow: 0 25px 100px rgba(0,0,0,0.3);">
+    <button class="close" data-close-apply style="float: right; background: white; border: 0; border-radius: 50%; width: 32px; height: 32px; font-size: 20px; cursor: pointer;">×</button>
+    <div class="eyebrow"><span class="dot"></span>60-Second Application</div>
+    <h2 style="font: 800 26px Manrope, sans-serif; letter-spacing: -1px; margin: 15px 0 8px;">Apply for a Skill Cohort</h2>
+    <p style="font-size: 13px; line-height: 1.6; color: #727575; margin-bottom: 20px;">
+      Real humans review every application within 48 hours. No GPA checks, no prior experience needed.
+    </p>
+
+    <form id="modalAppForm" style="display: flex; flex-direction: column; gap: 14px;">
+      <div>
+        <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">Your Full Name</label>
+        <input type="text" required placeholder="e.g. Jordan Miller" style="width: 100%; padding: 11px; border: 1px solid #d3d4d3; border-radius: 8px; font-family: inherit;">
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div>
+          <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">Age (13–20)</label>
+          <select id="modalAgeSelect" required style="width: 100%; padding: 11px; border: 1px solid #d3d4d3; border-radius: 8px; font-family: inherit;">
+            <option value="16">16</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">Program</label>
+          <select id="modalProgramSelect" required style="width: 100%; padding: 11px; border: 1px solid #d3d4d3; border-radius: 8px; font-family: inherit;">
+            <option value="Sneaker Lab">Sneaker Lab & Design</option>
+            <option value="Electrical Basics">Electrical & Trade Skills</option>
+            <option value="Digital Content">Digital Creator & Video</option>
+            <option value="Culinary Basics">Culinary & Food Venture</option>
+            <option value="Community Leadership">Community Leadership</option>
+            <option value="Audio Engineering">Audio Engineering</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">Email or Phone</label>
+        <input type="text" required placeholder="you@email.com or (555) 000-0000" style="width: 100%; padding: 11px; border: 1px solid #d3d4d3; border-radius: 8px; font-family: inherit;">
+      </div>
+      <div>
+        <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">What do you want to build or learn?</label>
+        <textarea rows="2" placeholder="Tell us what you're excited to make..." style="width: 100%; padding: 11px; border: 1px solid #d3d4d3; border-radius: 8px; font-family: inherit; resize: none;"></textarea>
+      </div>
+      <button type="submit" class="btn-orange-pill" style="width: 100%; justify-content: center; margin-top: 8px;">
+        Submit Application (Free) →
+      </button>
+    </form>
+
+    <div id="modalAppSuccess" style="display: none; text-align: center; padding: 25px 10px;">
+      <div style="font-size: 44px; margin-bottom: 10px;">🎉</div>
+      <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 8px;">Application Received!</h3>
+      <p style="font-size: 13px; color: #666; line-height: 1.6;">
+        A mentor coordinator will text or email you within 48 hours to confirm cohort dates and supply kit delivery.
+      </p>
+      <button class="btn-orange-pill" data-close-apply style="margin-top: 16px;">Done</button>
+    </div>
+  </dialog>
+
+  <!-- FOOTER -->
+  <footer style="background: #111719; color: #fff; padding: 70px 0 40px; margin-top: 80px;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 50px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+            <div class="brand-icon-pill">GN</div>
+            <span style="font-size: 1.3rem; font-weight: 800; color: #fff;">Generation<span style="color:var(--orange);">News</span></span>
+          </div>
+          <p style="color: #9ca3af; font-size: 0.9rem; max-width: 320px; line-height: 1.6;">
+            A youth development organization for ages 13–20, running hands-on programs that teach real, usable skills. Built by doing.
+          </p>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 16px;">Pages</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem;">
+            <li><a href="index.html" style="color: #9ca3af; text-decoration:none;">Home</a></li>
+            <li><a href="programs.html" style="color: #fff; font-weight:700; text-decoration:none;">Programs</a></li>
+            <li><a href="shop.html" style="color: #9ca3af; text-decoration:none;">Projects & Shop</a></li>
+            <li><a href="stories.html" style="color: #9ca3af; text-decoration:none;">Stories</a></li>
+            <li><a href="videos.html" style="color: #9ca3af; text-decoration:none;">Videos</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 16px;">Organization</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem;">
+            <li><a href="about.html" style="color: #9ca3af; text-decoration:none;">About Us</a></li>
+            <li><a href="mission.html" style="color: #9ca3af; text-decoration:none;">Our Mission</a></li>
+            <li><a href="community.html" style="color: #9ca3af; text-decoration:none;">Community Hub</a></li>
+            <li><a href="resources.html" style="color: #9ca3af; text-decoration:none;">Free Toolkits</a></li>
+            <li><a href="contact.html" style="color: #9ca3af; text-decoration:none;">Contact Desk</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 16px;">Get In Touch</h4>
+          <p style="color: #9ca3af; font-size: 0.85rem; line-height: 1.6; margin-bottom: 12px;">
+            Main Workshop Hub<br>424 Innovation Boulevard<br>Mon–Fri, 10am–7pm
+          </p>
+          <a href="contact.html" class="btn-orange-pill" style="font-size: 0.82rem; padding: 8px 16px; text-decoration:none;">Drop In & Visit →</a>
+        </div>
+      </div>
+      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px; display: flex; justify-content: space-between; font-size: 0.82rem; color: #6b7280;">
+        <span>© 2026 Generation News Youth Development Academy. All rights reserved.</span>
+        <span>Ages 13–20 • Skills over speeches</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT FOR PROGRAMS INTERACTIVITY -->
+  <script>
+    // 1. Program Category & Age Filters
+    const catButtons = document.querySelectorAll('[data-cat]');
+    const ageButtons = document.querySelectorAll('[data-age]');
+    const cards = document.querySelectorAll('.program-card');
+    let selCat = 'all';
+    let selAge = 'all';
+
+    function filterPrograms() {
+      cards.forEach(card => {
+        const cCat = card.dataset.category || '';
+        const cAge = card.dataset.age || '';
+        const matchC = selCat === 'all' || cCat === selCat;
+        const matchA = selAge === 'all' || cAge.includes(selAge);
+        if (matchC && matchA) {
+          card.style.display = 'flex';
+          gsap.fromTo(card, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' });
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    catButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        catButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selCat = btn.dataset.cat;
+        filterPrograms();
+      });
+    });
+
+    ageButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        ageButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selAge = btn.dataset.age;
+        filterPrograms();
+      });
+    });
+
+    // 2. Expandable Syllabi
+    document.querySelectorAll('.syllabus-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const content = btn.nextElementSibling;
+        const isOpen = content.classList.contains('open');
+        content.classList.toggle('open');
+        btn.textContent = isOpen ? '▶ View Curriculum' : '▼ Hide Curriculum';
+      });
+    });
+
+    // 3. Tuition & Scholarship Slider
+    const slider = document.getElementById('familyContribution');
+    const contribLabel = document.getElementById('contribValue');
+    const costLabel = document.getElementById('costValue');
+    const note = document.getElementById('scholarshipNote');
+
+    if (slider) {
+      slider.addEventListener('input', () => {
+        const val = parseInt(slider.value, 10);
+        contribLabel.textContent = `$${val}`;
+        costLabel.textContent = `$${val}`;
+        if (val === 0) {
+          note.textContent = '✓ 100% Need-Based Scholarship Applied ($450 Full Value Sponsored)';
+          note.style.background = '#e8f5e9';
+          note.style.color = '#2e7d32';
+        } else if (val < 250) {
+          note.textContent = `✓ Partial Sponsor Match: $${450 - val} Covered by Donor Fund`;
+          note.style.background = '#fff3e0';
+          note.style.color = '#e65100';
+        } else {
+          note.textContent = '★ Full Supporter: Your contribution sponsors tools for another student!';
+          note.style.background = '#ede7f6';
+          note.style.color = '#512da8';
+        }
+      });
+    }
+
+    // 4. Modal Open/Close Logic
+    const appModal = document.getElementById('appModal');
+    const openBtns = document.querySelectorAll('[data-open-apply]');
+    const closeBtns = document.querySelectorAll('[data-close-apply]');
+    const progSelect = document.getElementById('modalProgramSelect');
+    const appForm = document.getElementById('modalAppForm');
+    const appSuccess = document.getElementById('modalAppSuccess');
+
+    openBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const prefill = btn.dataset.prefillProgram;
+        if (prefill && progSelect) {
+          for (let opt of progSelect.options) {
+            if (opt.value.toLowerCase().includes(prefill.toLowerCase()) || opt.text.toLowerCase().includes(prefill.toLowerCase())) {
+              progSelect.value = opt.value;
+              break;
+            }
+          }
+        }
+        if (appModal) appModal.showModal();
+      });
+    });
+
+    closeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (appModal) appModal.close();
+      });
+    });
+
+    if (appModal) {
+      appModal.addEventListener('click', (e) => {
+        if (e.target === appModal) appModal.close();
+      });
+    }
+
+    if (appForm) {
+      appForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        appForm.style.display = 'none';
+        if (appSuccess) appSuccess.style.display = 'block';
+      });
+    }
+  </script>
+  <script src="js/nav.js"></script>
+</body>
+</html>

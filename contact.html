@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Us — Generation News Youth Development</title>
+  <meta name="description" content="Reach out to our youth admissions team, mentor coordinators, or campus liaisons. Direct contact info, visit hours, and interactive inquiry desk.">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    .page-hero {
+      padding: 70px 0 50px;
+      background: radial-gradient(ellipse at 80% 20%, rgba(255, 87, 34, 0.08), transparent 60%), #f8f7f4;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .contact-form-box {
+      background: #fff;
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid var(--border-card);
+      box-shadow: var(--shadow-card);
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 14px 18px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      margin-top: 6px;
+      margin-bottom: 18px;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--orange);
+      background: #fff;
+    }
+    .contact-info-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid var(--border-card);
+      padding: 28px;
+      box-shadow: var(--shadow-subtle);
+      margin-bottom: 20px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .contact-info-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--orange);
+    }
+    .campus-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP NAVIGATION BAR
+       ========================================================================== -->
+  <header class="top-nav">
+    <div class="container">
+      <div class="nav-row">
+        <a href="index.html" class="brand-box" style="text-decoration:none;">
+          <div class="brand-icon-pill">GN</div>
+          <span class="brand-name">Generation<span>News</span></span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-btn">Home</a></li>
+          <li><a href="programs.html" class="nav-btn">Programs</a></li>
+          <li><a href="shop.html" class="nav-btn">Projects & Shop</a></li>
+          <li><a href="stories.html" class="nav-btn">Stories</a></li>
+          <li><a href="videos.html" class="nav-btn">Videos</a></li>
+          <li><a href="about.html" class="nav-btn">About</a></li>
+          <li><a href="mission.html" class="nav-btn">Mission</a></li>
+          <li><a href="community.html" class="nav-btn">Community</a></li>
+          <li><a href="resources.html" class="nav-btn">Resources</a></li>
+          <li><a href="contact.html" class="nav-btn active">Contact</a></li>
+        </ul>
+
+        <div class="nav-cta-group">
+          <a href="programs.html" class="btn-orange-pill desktop-only" style="text-decoration:none;">
+            <span>Apply Now</span>
+            <span>→</span>
+          </a>
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+      <ul class="mobile-nav-list">
+        <li><a href="index.html" class="mobile-nav-link"><span>Home</span> <span>→</span></a></li>
+        <li><a href="programs.html" class="mobile-nav-link"><span>Programs</span> <span>→</span></a></li>
+        <li><a href="shop.html" class="mobile-nav-link"><span>Projects &amp; Shop</span> <span>→</span></a></li>
+        <li><a href="stories.html" class="mobile-nav-link"><span>Stories</span> <span>→</span></a></li>
+        <li><a href="videos.html" class="mobile-nav-link"><span>Videos</span> <span>→</span></a></li>
+        <li><a href="about.html" class="mobile-nav-link"><span>About</span> <span>→</span></a></li>
+        <li><a href="mission.html" class="mobile-nav-link"><span>Mission</span> <span>→</span></a></li>
+        <li><a href="community.html" class="mobile-nav-link"><span>Community</span> <span>→</span></a></li>
+        <li><a href="resources.html" class="mobile-nav-link"><span>Resources</span> <span>→</span></a></li>
+        <li><a href="contact.html" class="mobile-nav-link active"><span>Contact</span> <span>→</span></a></li>
+      </ul>
+      <div class="mobile-nav-footer">
+        <a href="programs.html" class="btn-orange-pill" style="width:100%; justify-content:center; text-decoration:none;">
+          <span>Apply for Cohort</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       PAGE HERO
+       ========================================================================== -->
+  <section class="page-hero">
+    <div class="container">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+        <span class="havenly-tag">GET IN TOUCH</span>
+        <span class="campus-badge">● Campus Bay 3 Open for Tours</span>
+      </div>
+      <h1 style="font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; max-width: 900px;">
+        Questions before you apply? <span style="color: var(--orange);">Start here.</span>
+      </h1>
+      <p style="font-size: 1.2rem; color: var(--text-body); max-width: 760px; line-height: 1.6; margin-bottom: 30px;">
+        Whether you're a teenager wanting to pick a cohort, a parent looking into scholarships, or an employer looking to hire an apprentice — real humans read every note.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CONTACT FORM & DIRECT DESKS
+       ========================================================================== -->
+  <section style="padding: 70px 0; background: #fff;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 3fr 2fr; gap: 48px; align-items: flex-start;">
+        
+        <!-- Interactive Smart Routing Form -->
+        <div class="contact-form-box">
+          <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 8px;">Direct Inquiry Desk</h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px;">
+            Fill out the form below and we'll route your note to the exact cohort coordinator or mentor lead.
+          </p>
+
+          <form id="main-contact-form">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div>
+                <label style="font-weight: 700; font-size: 0.88rem;">Your Full Name *</label>
+                <input type="text" id="contact-name" class="form-input" placeholder="e.g. Jordan Mitchell" required>
+              </div>
+              <div>
+                <label style="font-weight: 700; font-size: 0.88rem;">Email Address *</label>
+                <input type="email" id="contact-email" class="form-input" placeholder="you@email.com" required>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div>
+                <label style="font-weight: 700; font-size: 0.88rem;">Phone / WhatsApp</label>
+                <input type="tel" id="contact-phone" class="form-input" placeholder="(555) 019-2834">
+              </div>
+              <div>
+                <label style="font-weight: 700; font-size: 0.88rem;">I Am A: *</label>
+                <select id="contact-role" class="form-select" required>
+                  <option value="student">Prospective Student (Ages 13–20)</option>
+                  <option value="parent">Parent or Legal Guardian</option>
+                  <option value="mentor">Practitioner / Mentor Applicant</option>
+                  <option value="partner">School / Community Organization</option>
+                  <option value="donor">Donor / Philanthropic Partner</option>
+                  <option value="media">Journalist / Media Inquiry</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div>
+                <label style="font-weight: 700; font-size: 0.88rem;">Program of Interest</label>
+                <select id="contact-program" class="form-select">
+                  <option value="general">General Campus Inquiry</option>
+                  <option value="sneaker">Sneaker Lab: Design, Customize, Sell</option>
+                  <option value="electrical">Electrical & Trade Skills Basics</option>
+                  <option value="creator">Digital Content & Creator Basics</option>
+                  <option value="culinary">Culinary Basics & Food Business Starter</option>
+                  <option value="business">Money, Mindset & Micro-Business</option>
+                  <option value="leadership">Voice, Stage & Leadership</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-weight: 700; font-size: 0.88rem;">Preferred Response Method</label>
+                <select id="contact-method" class="form-select">
+                  <option value="email">Email</option>
+                  <option value="phone">Phone Call</option>
+                  <option value="whatsapp">Text / WhatsApp</option>
+                  <option value="tour">Schedule Campus Tour</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label style="font-weight: 700; font-size: 0.88rem;">Your Message *</label>
+              <textarea id="contact-message" class="form-textarea" rows="4" placeholder="How can we help? Tell us what you're interested in building or learning..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-orange-pill" style="width: 100%; border: 0; cursor: pointer; justify-content: center; padding: 16px;">
+              <span>Send Message</span>
+              <span>→</span>
+            </button>
+          </form>
+
+          <!-- Confirmation Card -->
+          <div id="contact-confirmation" style="display: none; margin-top: 24px; padding: 24px; background: #e8f5e9; border: 1px solid #c8e6c9; border-radius: 16px; text-align: center;">
+            <div style="display: inline-block; background: #2e7d32; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 12px;">
+              ✓ MESSAGE DISPATCHED
+            </div>
+            <h3 style="font-size: 1.4rem; font-weight: 800; color: #2e7d32; margin-bottom: 8px;">We've Got Your Message!</h3>
+            <p style="color: #2e7d32; font-size: 0.95rem; line-height: 1.5; margin: 0 0 16px;">
+              Ticket <strong style="font-family: var(--font-mono);">#GN-TKT-8291</strong> has been created. A coordinator will reply within 24 hours.
+            </p>
+            <div style="font-size: 0.85rem; color: #2e7d32; font-weight: 600;">
+              Want immediate assistance? Call our front desk at (555) 839-2041.
+            </div>
+          </div>
+        </div>
+
+        <!-- Direct Info Desks -->
+        <div>
+          <!-- Desk 1: Programs -->
+          <div class="contact-info-card">
+            <span style="font-size: 0.78rem; font-weight: 700; background: #fff3e0; color: #e65100; padding: 3px 8px; border-radius: 6px;">ADMISSIONS & SCHOLARSHIPS</span>
+            <h3 style="font-size: 1.25rem; font-weight: 800; margin: 8px 0 6px;">Programs Desk</h3>
+            <p style="color: var(--text-body); font-size: 0.9rem; margin-bottom: 12px;">
+              Questions about age ranges (13–20), cohort start dates, schedule conflicts, or financial scholarships.
+            </p>
+            <div style="font-weight: 700; font-size: 0.95rem; color: var(--orange);">
+              programs@generationnews.org
+            </div>
+          </div>
+
+          <!-- Desk 2: Mentors & Partners -->
+          <div class="contact-info-card">
+            <span style="font-size: 0.78rem; font-weight: 700; background: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 6px;">MENTORS & SPONSORS</span>
+            <h3 style="font-size: 1.25rem; font-weight: 800; margin: 8px 0 6px;">Partnership Desk</h3>
+            <p style="color: var(--text-body); font-size: 0.9rem; margin-bottom: 12px;">
+              Trade practitioners wanting to lead a bay, tool brand sponsors, or high schools wanting cohort partnerships.
+            </p>
+            <div style="font-weight: 700; font-size: 0.95rem; color: var(--orange);">
+              partners@generationnews.org
+            </div>
+          </div>
+
+          <!-- Desk 3: Physical Campus & Hours -->
+          <div class="contact-info-card">
+            <span style="font-size: 0.78rem; font-weight: 700; background: #f3e5f5; color: #7b1fa2; padding: 3px 8px; border-radius: 6px;">CAMPUS & VISITING</span>
+            <h3 style="font-size: 1.25rem; font-weight: 800; margin: 8px 0 6px;">The Maker Campus</h3>
+            <p style="color: var(--text-body); font-size: 0.9rem; line-height: 1.6; margin-bottom: 12px;">
+              1404 Maker Way, Bay 3<br>
+              <strong>Hours:</strong> Tue–Fri 3:30 PM – 8:30 PM<br>
+              <strong>Open Build Saturdays:</strong> 10:00 AM – 6:00 PM<br>
+              <em>Closed Sundays & Mondays for bay maintenance.</em>
+            </p>
+            <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-headline);">
+              Direct Line: (555) 839-2041
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SHARED FOOTER
+       ========================================================================== -->
+  <footer style="background: #0a0c11; color: #fff; padding: 60px 0 30px; border-top: 1px solid rgba(255,255,255,0.08);">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+        <div>
+          <div class="brand-box" style="margin-bottom: 16px;">
+            <div class="brand-icon-pill">GN</div>
+            <span class="brand-name" style="color:#fff;">Generation<span style="color:var(--orange);">News</span></span>
+          </div>
+          <p style="color: #828384; font-size: 0.92rem; line-height: 1.6; max-width: 340px;">
+            A youth development organization for ages 13–20 running hands-on programs that teach real, usable skills — from trades to creative business.
+          </p>
+          <div style="margin-top: 16px; font-size: 0.85rem; color: var(--orange); font-weight: 700;">
+            "Real Skills. Real Future. Built by Doing."
+          </div>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; color: #fff;">Explore</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem;">
+            <li><a href="programs.html" style="color: #959fad; text-decoration: none;">Programs & Cohorts</a></li>
+            <li><a href="shop.html" style="color: #959fad; text-decoration: none;">Projects & Shop</a></li>
+            <li><a href="stories.html" style="color: #959fad; text-decoration: none;">Graduate Stories</a></li>
+            <li><a href="videos.html" style="color: #959fad; text-decoration: none;">Video Theater</a></li>
+            <li><a href="about.html" style="color: #959fad; text-decoration: none;">About & Team</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; color: #fff;">Get Involved</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem;">
+            <li><a href="mission.html" style="color: #959fad; text-decoration: none;">Our Mission</a></li>
+            <li><a href="community.html" style="color: #959fad; text-decoration: none;">Community & RSVP</a></li>
+            <li><a href="resources.html" style="color: #959fad; text-decoration: none;">Free Toolkits</a></li>
+            <li><a href="contact.html" style="color: var(--orange); text-decoration: none;">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; color: #fff;">Campus</h4>
+          <p style="color: #959fad; font-size: 0.88rem; line-height: 1.6; margin-bottom: 12px;">
+            1404 Maker Way, Bay 3<br>
+            Open Tue–Sat: 3:30PM – 8:30PM<br>
+            Ages 13–20 Welcome
+          </p>
+          <span style="display: inline-block; background: rgba(46,125,50,0.2); color: #81c784; padding: 4px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;">● Active Workshop Hours</span>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; font-size: 0.82rem; color: #5f6b7c;">
+        <div>© 2026 Generation News Youth Development. Built by Doing. All rights reserved.</div>
+        <div>Nonprofit 501(c)(3) Partner Organization</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Contact Routing & Instant Confirmation -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const contactForm = document.getElementById('main-contact-form');
+      const confirmationBox = document.getElementById('contact-confirmation');
+
+      if (contactForm && confirmationBox) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          contactForm.style.display = 'none';
+          confirmationBox.style.display = 'block';
+        });
+      }
+    });
+  </script>
+  <script src="js/nav.js"></script>
+</body>
+</html>
